@@ -1,0 +1,39 @@
+<div class="card my-5">
+  <h3 class="card-title text-center">Commentaren</h3>
+  <div [hidden]="!deleteMessage">
+    <div class="alert alert-info alert-dismissible">
+      <strong>Commentaar verwijderd</strong>
+    </div>
+  </div>
+  <ul class="text-center list-inline py-3">
+    <li class="list-inline-item">
+      <a [routerLink]="['/add-comment']" class="btn btn-primary">Nieuwe commentaar aanmaken</a>
+    </li>
+  </ul>
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Zoekterm</th>
+        <th scope="col">Commentaar</th>
+        <th scope="col">Categorie</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let com of comments">
+        <td>{{ com.id }}</td>
+        <td>{{ com.searchterm }}</td>
+        <td>{{ com.replacement }}</td>
+        <td>{{ com.category }}</td>
+        <td><a [routerLink]="['/edit-comment', com.id]" class="btn btn-primary">bewerk</a></td>
+        <td>
+          <button (click)="deleteComment(com.id)" class="btn btn-primary">verwijder</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

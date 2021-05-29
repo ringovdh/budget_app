@@ -1,0 +1,32 @@
+<div class="card my-5 upload-card">
+  <div class="card-header">Voer nieuwe transacties in</div>
+  <div class="card-body">
+    <form [formGroup] = "uploadForm" (ngSubmit)="onSubmit()">
+      <div class="center-form">
+        <label for="upload">Selecteer een bestand (PDF)</label>
+        <input class="form-control" type="file" name="profile" id = "upload" placeholder="Upload file" accept=".pdf" (change)="onFileSelect($event)" />
+        <button class="btn btn-primary centered-button" type="submit">Transacties opladen</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div [hidden]="!submitted">
+  <h4>Transaction Added SuccessFully!</h4>
+</div>
+<div class="card my-5">
+  <div class="card-header">Onbewerkte transacties</div>
+  <div [hidden]="!noTransactions">
+    <h4>Alle transacties zijn reeds ingevoerd</h4>
+  </div>
+  <div class="card-columns">
+    <div class="card bg-light" *ngFor="let tx of transactions">
+      <div class="card-header bg-primary text-center">
+        <h4 class="card-title">{{tx.number}}</h4>
+      </div>
+      <div class="card-body text-center">
+        <p class="card-text">{{tx.originalComment}}</p>
+        <button class="btn btn-primary stretched-link" (click)="openFormModal(tx)"> Kies </button>
+      </div>
+      </div>
+  </div>
+</div>

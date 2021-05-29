@@ -1,0 +1,64 @@
+<div class="modal-header">
+  <h4 class="modal-title">Transactie {{ tx.number }}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="form-group row">
+    <label for="inputDate" class="col-sm-2 col-form-label">Datum</label>
+    <div class="col-sm-10">
+      <input type="date" class="form-control" id="inputDate" [(ngModel)]="tx.date">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputOmschrijving" class="col-sm-2 col-form-label">Omschrijving</label>
+    <div class="col-sm-10">
+      <textarea id="inputOmschrijving" cols="60" rows="6" [(ngModel)]="tx.comment" type="text" class="form-control"></textarea>
+    </div>
+  </div>
+  <div class="form-group row" *ngIf="searchterm_check">
+    <label for="zoekterm" class="col-sm-2 col-form-label">Zoekterm</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="zoekterm" [(ngModel)]="searchterm">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputOriginal" class="col-sm-2 col-form-label">Origineel</label>
+    <div class="col-sm-10">
+      <textarea id="inputOriginal" cols="60" rows="4" [(ngModel)]="tx.originalComment" type="text" class="form-control"></textarea>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputCategory" class="col-sm-2 col-form-label">Categorie</label>
+    <div class="col-sm-10">
+      <select id="inputCategory" class="form-control" [(ngModel)]="tx.category">
+        <option value="0">-</option>
+        <option *ngFor="let cat of categories" value="{{cat.id}}">{{ cat.label }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputAmount" class="col-sm-2 col-form-label">Bedrag</label>
+    <div class=" col-sm-10">
+      <div class="input-group">
+        <div class="input-group-append">
+          <span class="input-group-text">{{ tx.sign }}</span>
+        </div>
+      <input type="text" class="form-control" id="inputAmount" [(ngModel)]="tx.amount">
+        <div class="input-group-append">
+          <span class="input-group-text">€</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="form-check">
+    <input class="col-sm-2 form-check-input" type="checkbox" value="" [(ngModel)]="searchterm_check" id="searchterm_check"/>
+    <label class="form-check-label" for="searchterm_check">Bewaar nieuwe commentaar </label>
+  </div>
+  <button class="btn btn-primary centered-button" (click)="closeAndSave(tx, searchterm, searchterm_check)">
+    Bewaar
+  </button>
+</div>

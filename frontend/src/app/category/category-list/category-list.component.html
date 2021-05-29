@@ -1,0 +1,35 @@
+<div class="card my-5">
+  <h3 class="card-title text-center">Categorie-lijst</h3>
+  <div [hidden]="!deleteMessage">
+    <div class="alert alert-info alert-dismissible">
+      <strong>Categorie verwijderd</strong>
+    </div>
+  </div>
+  <ul class="text-center list-inline py-3">
+    <li class="list-inline-item">
+      <a [routerLink]="['/add-category']" class="btn btn-primary">Nieuwe categorie aanmaken</a>
+    </li>
+  </ul>
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Label</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let cat of categories">
+        <td>{{ cat.id }}</td>
+        <td>{{ cat.label }}</td>
+        <td><a [routerLink]="['/edit-category', cat.id]" class="btn btn-primary">bewerk</a></td>
+        <td>
+          <button (click)="deleteCategory(cat.id)" class="btn btn-primary">verwijder</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

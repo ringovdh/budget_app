@@ -1,0 +1,23 @@
+.filter-card label{
+  padding-right: 10px;
+}
+
+.upload-card label{
+  padding-right: 10px;
+}
+
+.filter-card select{
+  margin-right: 10px;
+}
+
+.upload-card select{
+  margin-right: 10px;
+}
+
+.center-form {
+  text-align: center;
+}
+
+.centered-button {
+  margin-top: 10px;
+}

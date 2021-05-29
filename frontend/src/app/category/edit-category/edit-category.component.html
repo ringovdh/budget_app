@@ -1,0 +1,11 @@
+<div class="card my-5">
+  <h3 class="card-title text-center">Bewerk categorie</h3>
+  <form class="edit_category_form" [formGroup]="editCategoryForm" #savedCategory (ngSubmit)="onFormSubmit(editCategoryForm.value)">
+    <fieldset>
+      <label for="label">Categorie:</label>
+      <input type="text"  formControlName="category_label"  id="label" name="label" >
+    </fieldset>
+    <button type="submit" class="btn btn-primary">Bewaar wijziging</button>
+    <button type="button" class="btn btn-default">Annuleren</button>
+  </form>
+</div>
