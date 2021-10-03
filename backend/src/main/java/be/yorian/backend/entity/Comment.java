@@ -10,7 +10,9 @@ public class Comment {
     private long id;
     private String searchterm;
     private String replacement;
-    private long category;
+    @OneToOne
+    @JoinColumn(name = "category", referencedColumnName = "id")
+    private Category category;
 
     public Comment() {
     }
@@ -24,7 +26,7 @@ public class Comment {
     }
 
     public String getSearchterm() {
-        return searchterm;
+        return searchterm.toLowerCase();
     }
 
     public void setSearchterm(String searchterm) {
@@ -39,11 +41,11 @@ public class Comment {
         this.replacement = replacement;
     }
 
-    public long getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(long category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

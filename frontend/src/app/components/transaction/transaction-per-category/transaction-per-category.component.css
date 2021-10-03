@@ -1,0 +1,21 @@
+.panel {
+  border: solid 2px #7d97a5;
+  border-radius: 12px;
+  margin: 10px;
+}
+
+.panel .panel-heading{
+  background: #7d97a5;
+  color: #fff;
+  padding: 15px;
+  border-radius: 8px 8px 0 0;
+}
+
+.panel .panel-body{
+  padding: 10px;
+  border-radius: 0 0 10px 10px;
+  background: #f5f7f8;
+}
+
+
+

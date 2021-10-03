@@ -7,9 +7,8 @@ import java.util.Optional;
 
 public interface CommentController {
 
-    public List<Comment> getComments();
-    public Optional<Comment> getCommentById(Long comment_id);
-    public void saveComment(Comment comment);
-    public Comment updateComment(Comment comment);
-    public void deleteComment(Long comment_id);
+    List<Comment> getComments();
+    Optional<Comment> getCommentById(Long comment_id);
+    void saveComment(Comment comment);
+    void deleteComment(Long comment_id);
 }

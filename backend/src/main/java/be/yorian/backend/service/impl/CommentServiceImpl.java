@@ -22,7 +22,6 @@ public class CommentServiceImpl implements CommentService{
 		this.commentRepository = commentRepository;
 	}
 
-	
 	@Override
 	public List<Comment> getComments() {
 		return commentRepository.findAll(sortBySearchterm());
@@ -38,21 +37,7 @@ public class CommentServiceImpl implements CommentService{
 		commentRepository.save(comment);
 		
 	}
-	
-	@Override
-	public Comment updateComment(Comment comment) {
-		if(commentRepository.findById(comment.getId()).isPresent()) {
-			Comment existingComment = commentRepository.findById(comment.getId()).get();
-			existingComment.setSearchterm(comment.getSearchterm());
-			existingComment.setReplacement(comment.getReplacement());
-			existingComment.setCategory(comment.getCategory());
-			commentRepository. save(existingComment);
-			
-			return existingComment;
-		} else {
-			return null;
-		}
-	}
+
 
 	@Override
 	public void deleteComment(Long comment_id) {

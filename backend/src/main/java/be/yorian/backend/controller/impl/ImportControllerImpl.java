@@ -1,10 +1,11 @@
 package be.yorian.backend.controller.impl;
 
+import be.yorian.backend.entity.ImportResponse;
 import be.yorian.backend.entity.Transaction;
 import be.yorian.backend.helper.PDFReader;
-import be.yorian.backend.service.impl.TransactionServiceImpl;
 import be.yorian.backend.controller.ImportController;
 
+import be.yorian.backend.service.impl.ImportServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,15 +19,12 @@ import java.util.List;
 public class ImportControllerImpl implements ImportController {
 
     @Autowired
-    TransactionServiceImpl transactionService;
+    ImportServiceImpl importService;
 
     @Override
     @PostMapping("/importTransactions")
-    public List<Transaction> importTransactions(@RequestParam("file") MultipartFile file) {
-        PDFReader pdfReader = new PDFReader(file);
-        List<Transaction> transactions = pdfReader.parsePDFToTransactions();
-        List<Transaction> filteredTransactions = this.transactionService.filterTransactions(transactions);
+    public ImportResponse importTransactions(@RequestParam("file") MultipartFile file) {
 
-        return filteredTransactions;
+        return importService.handleImport(file);
     }
 }

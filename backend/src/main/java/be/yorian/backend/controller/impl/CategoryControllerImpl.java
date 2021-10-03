@@ -31,7 +31,8 @@ public class CategoryControllerImpl implements CategoryController{
     @Override
     @GetMapping("/categories")
     public List<Category> getCategories() {
-    	return categoryService.getCategories();
+        List<Category> categories = categoryService.getCategories();
+    	return categories;
     }
 
     @Override

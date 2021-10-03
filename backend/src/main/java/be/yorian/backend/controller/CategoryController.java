@@ -8,11 +8,11 @@ import org.springframework.http.ResponseEntity;
 
 public interface CategoryController {
 
-    public List<Category> getCategories();
-    public Optional<Category> getCategory(long id);
-    public ResponseEntity<Void> saveCategory(Category category);
-    public Category updateCategory(Category category);
-    public void deleteCategory(long category_id);
+    List<Category> getCategories();
+    Optional<Category> getCategory(long id);
+    ResponseEntity<Void> saveCategory(Category category);
+    Category updateCategory(Category category);
+    void deleteCategory(long category_id);
         
     
 }

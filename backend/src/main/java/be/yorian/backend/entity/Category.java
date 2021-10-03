@@ -9,6 +9,8 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     public String label;
+    public String icon;
+    public boolean fixedcost;
 
     public Category() {}
 
@@ -28,5 +30,21 @@ public class Category {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public boolean isFixedcost() {
+        return fixedcost;
+    }
+
+    public void setFixedcost(boolean fixedcost) {
+        this.fixedcost = fixedcost;
     }
 }

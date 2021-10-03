@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { Observable } from 'rxjs/Observable'
 import { Transaction} from '../model/transaction'
+import { ImportResponse} from '../model/importResponse'
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +18,12 @@ export class ImportService {
     this.importURL = 'http://localhost:8080/importTransactions';
   }
 
-  public pushFileToBackend(file: File): Observable<Transaction[]> {
+  public pushFileToBackend(file: File): Observable<ImportResponse> {
 
     const data: FormData = new FormData();
     data.append('file', file);
-    var lijst: Observable<Transaction[]> = this.http.post<Transaction[]>(this.importURL, data)
-
-    return lijst;
+    var response: Observable<ImportResponse> = this.http.post<ImportResponse>(this.importURL, data)
+    console.log(response)
+    return response;
   }
 }

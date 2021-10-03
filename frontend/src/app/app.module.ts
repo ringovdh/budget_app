@@ -5,16 +5,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { CategoryListComponent } from './category/category-list/category-list.component';
-import { ImportComponent } from './import/import.component';
-import { AddCategoryComponent } from './category/add-category/add-category.component';
-import { EditCategoryComponent } from './category/edit-category/edit-category.component';
-import { CommentListComponent } from './comment/comment-list/comment-list.component';
-import { AddCommentComponent } from './comment/add-comment/add-comment.component';
-import { EditCommentComponent } from './comment/edit-comment/edit-comment.component';
-import { TransactionModule } from './transaction/transaction.module';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { CategoryListComponent } from './components/category/category-list/category-list.component';
+import { ImportComponent } from './components/import/import.component';
+import { AddCategoryComponent } from './components/category/add-category/add-category.component';
+import { EditCategoryComponent } from './components/category/edit-category/edit-category.component';
+import { CommentListComponent } from './components/comment/comment-list/comment-list.component';
+import { AddCommentComponent } from './components/comment/add-comment/add-comment.component';
+import { EditCommentComponent } from './components/comment/edit-comment/edit-comment.component';
+import { TransactionModule } from './components/transaction/transaction.module';
 import { registerLocaleData } from '@angular/common';
 import localeBE from '@angular/common/locales/be';
+import { TransactionOverviewComponent } from './components/transaction/transaction-overview/transaction-overview.component';
+import { TransactionPerCategoryComponent } from './components/transaction/transaction-per-category/transaction-per-category.component';
+
 
 @NgModule({
   declarations: [
@@ -26,6 +30,8 @@ import localeBE from '@angular/common/locales/be';
     CommentListComponent,
     AddCommentComponent,
     EditCommentComponent,
+    TransactionOverviewComponent,
+    TransactionPerCategoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +41,7 @@ import localeBE from '@angular/common/locales/be';
     NgbModule,
     TransactionModule,
     AppRoutingModule,
+    NgxPaginationModule,
   ],
   bootstrap: [
     AppComponent

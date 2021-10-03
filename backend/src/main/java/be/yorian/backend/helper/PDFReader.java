@@ -97,38 +97,44 @@ public class PDFReader {
     }
 
     private void mapLongTransaction(int positieEersteLijn, String lines[], List<Transaction> transactions, String year) {
-
-        Transaction tx;
+        Transaction tx = null;
         Boolean isRightSign = false;
         int positieLaatsteLijn = positieEersteLijn;
         String line = lines[positieEersteLijn];
         String firstLine[] = line.split("\\s+");
-        tx = new Transaction(firstLine[1]);
-        String lastLine[] = firstLine;
-        while(!isRightSign) {
-            while(!hasSign(lastLine)){
-                firstLine = concatenate(firstLine,lastLine);
-                positieLaatsteLijn++;
-                line = lines[positieLaatsteLijn];
-                lastLine = line.split("\\s+");
-            }
-            int length = lastLine.length;
-            if (lastLine[length - 1].equals("-")){
-                tx.setSign(lastLine[length-1]);
-                tx.setAmount(convertAmount(lastLine[length -2]));
-                tx.setDate(convertDate(lastLine[length -3] + "-" + year));
-                transactions.add(tx);
-                isRightSign = true;
-            } else{
-                tx.setSign("+");
-                tx.setAmount(convertAmount(lastLine[length-1]));
-                tx.setDate(convertDate(lastLine[length -2] + "-" + year));
-                transactions.add(tx);
-                isRightSign = true;
-            }
-        }
+        try {
+            tx = new Transaction(firstLine[1]);
+            String lastLine[] = firstLine;
+            while (!isRightSign) {
+                while (!hasSign(lastLine)) {
+                    firstLine = concatenate(firstLine, lastLine);
+                    positieLaatsteLijn++;
+                    line = lines[positieLaatsteLijn];
+                    lastLine = line.split("\\s+");
 
-        tx.setOriginalComment(bepaalLangeOmschrijving(firstLine.length, firstLine));
+                }
+                int length = lastLine.length;
+                if (lastLine[length - 1].equals("-")) {
+                    tx.setSign(lastLine[length - 1]);
+                    tx.setAmount(convertAmount(lastLine[length - 2]));
+                    tx.setDate(convertDate(lastLine[length - 3] + "-" + year));
+                    transactions.add(tx);
+                    isRightSign = true;
+                } else {
+                    tx.setSign("+");
+                    tx.setAmount(convertAmount(lastLine[length - 1]));
+                    tx.setDate(convertDate(lastLine[length - 2] + "-" + year));
+                    transactions.add(tx);
+                    isRightSign = true;
+                }
+            }
+
+            tx.setOriginalComment(bepaalLangeOmschrijving(firstLine.length, firstLine));
+        } catch (Exception ex) {
+            System.out.println("fout in tx: " + tx.getNumber());
+            tx.setOriginalComment(bepaalLangeOmschrijving(firstLine.length, firstLine));
+            transactions.add(tx);
+        }
     }
 
     private Transaction mapShortTransaction(String[] words, String year) {
@@ -178,7 +184,6 @@ public class PDFReader {
 
         boolean hasSign = false;
         int length = words.length;
-
         if (words[length -1].endsWith("+") || words[length -1].equals("-")) {
             if (Pattern.compile("[0-9]").matcher(words[length -2]).find()) {
                 hasSign = true;

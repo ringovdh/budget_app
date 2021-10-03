@@ -1,7 +1,5 @@
 package be.yorian.backend.entity;
 
-import be.yorian.backend.helper.TransactionHelper;
-
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -18,13 +16,13 @@ public class Transaction {
     public String comment;
     @Transient
     public String originalComment;
-    public long category;
-    @Transient
-    TransactionHelper transactionHelper;
+    @OneToOne
+    @JoinColumn(name = "category", referencedColumnName = "id")
+    public Category category;
 
     public Transaction() {}
 
-    public Transaction(String number, Double amount, String sign, Date date, String comment, long category) {
+    public Transaction(String number, Double amount, String sign, Date date, String comment, Category category) {
         this.number = number;
         this.amount = amount;
         this.sign = sign;
@@ -85,11 +83,11 @@ public class Transaction {
         this.comment = comment;
     }
 
-    public long getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(long category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

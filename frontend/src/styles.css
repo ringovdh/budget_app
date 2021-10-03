@@ -1,23 +1,35 @@
-.filter-card label{
-  padding-right: 10px;
+body {
+  background-color: #f5f7f8;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
 }
 
-.upload-card label{
-  padding-right: 10px;
+.navbar {
+  background-color: #303e45;
+  font-family: 'Quicksand', sans-serif;
+  color: #f5f7f8;
 }
 
-.filter-card select{
-  margin-right: 10px;
+.navbar-brand {
+  margin: 0 10px 0 10px;
+  font-size: 36px;
 }
 
-.upload-card select{
-  margin-right: 10px;
+.navbar .nav-link {
+  color: #9eb1bb;
+  text-decoration: none;
+  font-size: 20px;
 }
 
-.center-form {
-  text-align: center;
+.nav-item a:hover {
+  color: #f5f7f8;
 }
 
-.centered-button {
-  margin-top: 10px;
+.modal-dialog {
+  width: 560px !important;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: bold;
 }

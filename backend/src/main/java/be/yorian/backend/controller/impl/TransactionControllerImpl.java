@@ -4,6 +4,7 @@ import be.yorian.backend.entity.Transaction;
 import be.yorian.backend.repository.TransactionRepository;
 import be.yorian.backend.controller.TransactionController;
 
+import be.yorian.backend.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
@@ -13,29 +14,28 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class TransactionControllerImpl implements TransactionController{
 
-    private final TransactionRepository transactionRepository;
+    private final TransactionService transactionService;
 
     @Autowired
-    public TransactionControllerImpl(TransactionRepository transactionRepository) {
-        this.transactionRepository = transactionRepository;
+    public TransactionControllerImpl(TransactionService transactionService) {
+        this.transactionService = transactionService;
     }
 
     @Override
     @GetMapping("/transactions")
     public List<Transaction> getTransactions() {
-        return (List<Transaction>) transactionRepository.findAll(sortByDate());
+        List<Transaction> transactions = transactionService.getTransactions();
+        return transactions;
     }
 
 
 	@Override
-    @PostMapping("/transactions-save")
+    @PostMapping("/transactions")
     public void saveTransaction(@RequestBody Transaction transaction) {
-        transactionRepository.save(transaction);
+        transactionService.saveTransaction(transaction);
     }
 
 
-    private Sort sortByDate() {
-        return Sort.by("date").ascending();
-    }
+
 
 }

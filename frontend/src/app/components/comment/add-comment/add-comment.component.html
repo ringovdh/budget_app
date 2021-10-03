@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <div class="modal-header-left">
+    <h3>Commentaar toevoegen</h3>
+    <p>{{ comment.searchterm }}</p>
+  </div>
+  <div class="modal-header-right">
+    <i *ngIf="comment.category" class="fa {{comment.category.icon}}"></i>
+    <i *ngIf="!comment.category" class="fa fa-comment-dots"></i>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="form-group">
+    <label for="searchterm" class="form-label">Zoekterm:</label>
+    <input type="text" class="form-control"  id="searchterm" name="searchterm" [(ngModel)]="comment.searchterm" required>
+  </div>
+  <div class="form-group">
+    <label for="replacement" class="form-label">Commentaar:</label>
+    <input type="text" class="form-control"  id="replacement" name="replacement" [(ngModel)]="comment.replacement" required>
+  </div>
+  <div>
+    <label for="category" class="form-label">Categorie</label>
+    <select class="form-control" id="category" name="categorie" [(ngModel)]="comment.category">>
+      <option value="0">-</option>
+      <option *ngFor="let cat of categories" [ngValue]="cat">{{ cat.label }}</option>
+    </select>
+  </div>
+</div>
+<div class="modal-footer">
+  <a (click)="closeAndSave()" class="btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i> Bewaar commentaar</a>
+  <a (click)="activeModal.dismiss('Cross click')" class="btn btn-sm btn-primary"><i class="fa fa-times-circle "></i> Annuleren</a>
+</div>

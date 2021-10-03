@@ -10,7 +10,6 @@ public interface CommentService {
 	public List<Comment> getComments();
 	public Optional<Comment> getCommentById(Long comment_id);
 	public void saveComment(Comment comment);
-	public Comment updateComment(Comment comment);
 	public void deleteComment(Long comment_id);
 	
 }

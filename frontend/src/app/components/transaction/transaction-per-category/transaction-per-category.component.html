@@ -1,0 +1,99 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="row">
+            <h3 class="card-title text-center">Filter</h3>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="form-group-row">
+            <label for="category">Categorie</label>
+            <select class="selectBox" id="category" [(ngModel)]="category_id" (ngModelChange)="changeCategory($event)">
+              <option value="0">-</option>
+              <option *ngFor="let cat of categories" value="{{cat.id}}">{{ cat.label }}</option>
+            </select>
+          </div>
+          <div class="form-group-row">
+            <label for="year">Jaartal</label>
+            <select class="selectBox" id="year"[(ngModel)]="year" (ngModelChange)="changeYear($event)">
+              <option value="0">-</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
+              <option value="2016">2016</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="row">
+            <h3 class="card-title text-center">Grafiek</h3>
+          </div>
+        </div>
+        <div class="panel-body">
+          <app-transaction-per-category-graph [transactions]="filteredTransactions"></app-transaction-per-category-graph>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="row">
+            <h3 class="card-title text-center">Transacties van {{ category_id }}</h3>
+          </div>
+        </div>
+        <div class="panel-body table-responsive">
+          <table class = "table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Datum</th>
+              <th>Omschrijving</th>
+              <th>Bedrag</th>
+              <th>Categorie</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let tx of importedFilteredTransactions | paginate: { itemsPerPage: 5, currentPage: p }">
+              <td>{{ tx.number }}</td>
+              <td>{{ tx.date | date:'d/MM/yyyy' }}</td>
+              <td>{{ tx.comment }}</td>
+              <td>{{ tx.sign }} {{ tx.amount }}€</td>
+              <td><i class="fa {{tx.category.icon}}" ></i></td>
+              <td>
+                <ul class="action-list">
+                  <li><a (click)="openEditTransactionForm(tx)" class="btn btn-primary"><i class="fa fa-pencil"></i></a></li>
+                </ul>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-sm-6">
+              toon <b>5</b> van de <b>{{ numberOfTransactions }}</b> items
+            </div>
+            <div class="col-sm-6">
+              <pagination-controls class="pagination"
+                                   (pageChange)="p = $event"
+                                   previousLabel=""
+                                   nextLabel="">
+              </pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

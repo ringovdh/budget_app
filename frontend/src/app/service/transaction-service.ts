@@ -22,6 +22,6 @@ export class TransactionService {
   }
 
   public saveTransaction(transaction: Transaction): Observable<Object> {
-    return this.http.post(this.transactionURL + '-save', transaction, this.httpOptions)
+    return this.http.post(this.transactionURL, transaction, this.httpOptions)
   }
 }

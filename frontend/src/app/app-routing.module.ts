@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TransactionListComponent } from './transaction/transaction-list/transaction-list.component';
-import { CategoryListComponent } from './category/category-list/category-list.component';
-import { CommentListComponent } from './comment/comment-list/comment-list.component';
-import { AddCommentComponent } from './comment/add-comment/add-comment.component'
-import { AddCategoryComponent } from './category/add-category/add-category.component';
-import { EditCommentComponent } from './comment/edit-comment/edit-comment.component';
-import { EditCategoryComponent } from './category/edit-category/edit-category.component';
-import { AddTransactionComponent } from './transaction/add-transaction/add-transaction.component'
-import { ImportComponent } from './import/import.component';
+import { TransactionOverviewComponent } from './components/transaction/transaction-overview/transaction-overview.component';
+import { CategoryListComponent } from './components/category/category-list/category-list.component';
+import { CommentListComponent } from './components/comment/comment-list/comment-list.component';
+import { AddCommentComponent } from './components/comment/add-comment/add-comment.component'
+import { AddCategoryComponent } from './components/category/add-category/add-category.component';
+import { EditCommentComponent } from './components/comment/edit-comment/edit-comment.component';
+import { EditCategoryComponent } from './components/category/edit-category/edit-category.component';
+import { AddTransactionComponent } from './components/transaction/add-transaction/add-transaction.component'
+import { ImportComponent } from './components/import/import.component';
 
 const routes: Routes = [
-  { path: 'transactions', component: TransactionListComponent },
+  { path: 'transactions', component: TransactionOverviewComponent },
   { path: 'categories', component: CategoryListComponent },
   { path: 'import', component: ImportComponent },
   { path: 'comments', component: CommentListComponent },

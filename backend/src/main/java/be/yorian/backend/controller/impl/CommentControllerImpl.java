@@ -14,20 +14,19 @@ import be.yorian.backend.controller.CommentController;
 @CrossOrigin(origins = "http://localhost:4200")
 public class CommentControllerImpl implements CommentController {
 
-	
     private CommentService commentService;
-    
     
     @Autowired
     public CommentControllerImpl(CommentService commentService) {
-    	this.commentService = commentService;
+        this.commentService = commentService;
     }
 
     
     @Override
     @GetMapping("/comments")
     public List<Comment> getComments() {
-        return commentService.getComments();
+        List<Comment> comments = commentService.getComments();
+        return comments;
     }
     
     @Override
@@ -42,11 +41,6 @@ public class CommentControllerImpl implements CommentController {
         commentService.saveComment(comment);
     }
 
-    @Override
-    @PutMapping("/comments")
-    public Comment updateComment(@RequestBody Comment comment) {
-    	return commentService.updateComment(comment);
-    }
     
     @Override
     @DeleteMapping("/comments/{comment_id}")
