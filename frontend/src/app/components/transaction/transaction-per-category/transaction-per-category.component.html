@@ -34,11 +34,22 @@
       <div class="panel">
         <div class="panel-heading">
           <div class="row">
-            <h3 class="card-title text-center">Grafiek</h3>
+            <h3 class="card-title text-center">Details</h3>
           </div>
         </div>
         <div class="panel-body">
-          <app-transaction-per-category-graph [transactions]="filteredTransactions"></app-transaction-per-category-graph>
+          <div>
+            <table width="100%">
+              <tr>
+                <td width="50%">uitgegeven = {{ totalNegative| number:'1.2-2':'be-BE' }}€</td>
+                <td>gemiddeld = {{ avgNegative| number:'1.2-2':'be-BE' }}€ per maand</td>
+              </tr>
+              <tr>
+                <td width="50%">ontvangen = {{ totalPositive| number:'1.2-2':'be-BE' }}€</td>
+                <td>gemiddeld = {{ avgPositive| number:'1.2-2':'be-BE' }}€ per maand</td>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -48,7 +59,23 @@
       <div class="panel">
         <div class="panel-heading">
           <div class="row">
-            <h3 class="card-title text-center">Transacties van {{ category_id }}</h3>
+            <h3 class="card-title text-center">Grafiek van de categorie: {{ category_label }} </h3>
+          </div>
+        </div>
+        <div class="panel-body">
+          <app-transaction-per-category-graph
+            [transactions]="filteredTransactions">
+          </app-transaction-per-category-graph>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="row">
+            <h3 class="card-title text-center">Transacties in de categorie: {{ category_label }}</h3>
           </div>
         </div>
         <div class="panel-body table-responsive">

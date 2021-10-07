@@ -24,6 +24,7 @@ export class TransactionListComponent implements OnInit {
   categories: Category[];
   submitted = false;
   category_id = 0;
+  category_label = "";
   year = 0;
   month = 0;
   totalPositive = 0.0;
@@ -86,6 +87,7 @@ export class TransactionListComponent implements OnInit {
       this.importedFilteredTransactions = this.filteredTransactions;
       this.numberOfTransactions = this.filteredTransactions.length;
       this.calculateAmounts();
+      this.retreiveCategoryLabel(this.category_id);
     }
   }
 
@@ -113,5 +115,10 @@ export class TransactionListComponent implements OnInit {
     if (_countPositive > 0) {
       this.avgPositive = _totalPositive / _countPositive;
     }
+  }
+
+  private retreiveCategoryLabel(category_id) {
+    const _cat = this.categories.find( ({ id }) => id == category_id );
+    this.category_label = _cat.label;
   }
 }
