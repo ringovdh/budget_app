@@ -9,6 +9,7 @@ import { TransactionPipe } from '../category/transaction.pipe';
 import { TransactionPerMonthComponent } from './transaction-per-month/transaction-per-month.component';
 import { TransactionPerYearComponent } from './transaction-per-year/transaction-per-year.component';
 import { TransactionPerCategoryGraphComponent } from './transaction-graph/transaction-per-category/transaction-per-category-graph.component';
+import { SavingGraphComponent } from './../saving/saving-graph/saving-graph.component';
 import {NgxPaginationModule} from "ngx-pagination";
 
 
@@ -22,6 +23,7 @@ import {NgxPaginationModule} from "ngx-pagination";
     TransactionPerMonthComponent,
     TransactionPerYearComponent,
     TransactionPerCategoryGraphComponent,
+    SavingGraphComponent,
   ],
     imports: [
         CommonModule,
@@ -34,7 +36,8 @@ import {NgxPaginationModule} from "ngx-pagination";
     TransactionListComponent,
     TransactionPerYearComponent,
     TransactionPerMonthComponent,
-    TransactionPerCategoryGraphComponent
+    TransactionPerCategoryGraphComponent,
+    SavingGraphComponent
   ],
   entryComponents: [
     AddTransactionComponent

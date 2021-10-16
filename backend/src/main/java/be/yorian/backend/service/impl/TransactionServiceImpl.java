@@ -12,12 +12,16 @@ import java.util.List;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    @Autowired
+    final
     TransactionRepository transactionRepository;
 
-    @Autowired
+    final
     CommentRepository commentRepository;
 
+    public TransactionServiceImpl(TransactionRepository transactionRepository, CommentRepository commentRepository) {
+        this.transactionRepository = transactionRepository;
+        this.commentRepository = commentRepository;
+    }
 
 
     @Override

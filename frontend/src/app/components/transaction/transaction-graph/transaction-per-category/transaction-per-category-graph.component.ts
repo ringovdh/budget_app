@@ -10,13 +10,13 @@ import { Chart } from 'chart.js';
 export class TransactionPerCategoryGraphComponent implements OnChanges {
 
   @Input() transactions: Transaction[];
-  linechart: Chart;
+  lineChart: Chart;
 
   constructor() { }
 
   ngOnChanges() {
-    let periods = new Array();
-    let amounts = new Array();
+    let periods = [];
+    let amounts = [];
 
     if (this.transactions != null) {
       const groups = this.groupAndCountPerMonth();
@@ -25,10 +25,10 @@ export class TransactionPerCategoryGraphComponent implements OnChanges {
         periods.push(key)
         amounts.push(groups[key])
       }
-      if (this.linechart != null) {
-        this.linechart.destroy();
+      if (this.lineChart != null) {
+        this.lineChart.destroy();
       }
-      this.linechart = new Chart('lineChartCategories', {
+      this.lineChart = new Chart('lineChartCategories', {
         type: 'line', data: {
           labels: periods,
           datasets: [
@@ -56,11 +56,13 @@ export class TransactionPerCategoryGraphComponent implements OnChanges {
   }
 
   public groupAndCountPerMonth() {
-    var group = new Array();
+
+    let group = [];
+
     this.transactions.forEach(function(transaction) {
-      var month = new Date(transaction.date).getMonth()+1;
-      var year = new Date(transaction.date).getFullYear();
-      var period = month +'/'+year;
+      let month = new Date(transaction.date).getMonth() + 1;
+      let year = new Date(transaction.date).getFullYear();
+      let period = month +'/'+year;
       //TODO remove hardcoded id's!
       if (transaction.category.id != 44 && transaction.category.id != 27 && transaction.category.id != 26) {
         if (period in group) {

@@ -20,10 +20,12 @@ export class TransactionPerMonthGraphComponent implements OnChanges {
       let categories = new Array();
       let amount = new Array();
       const groups = this.groupAndCountPerCategory();
+
       for (const key in groups) {
         categories.push(key)
         amount.push(groups[key])
       }
+
       if (this.pieChart != null) {
         this.pieChart.destroy();
       }

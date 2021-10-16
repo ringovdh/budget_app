@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TransactionOverviewComponent } from './components/transaction/transaction-overview/transaction-overview.component';
 import { CategoryListComponent } from './components/category/category-list/category-list.component';
 import { CommentListComponent } from './components/comment/comment-list/comment-list.component';
+import { SavingComponent } from './components/saving/saving/saving.component';
 import { AddCommentComponent } from './components/comment/add-comment/add-comment.component'
 import { AddCategoryComponent } from './components/category/add-category/add-category.component';
 import { EditCommentComponent } from './components/comment/edit-comment/edit-comment.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'categories', component: CategoryListComponent },
   { path: 'import', component: ImportComponent },
   { path: 'comments', component: CommentListComponent },
+  { path: 'savings', component: SavingComponent },
   { path: 'add-comment', component: AddCommentComponent },
   { path: 'edit-comment/:id', component: EditCommentComponent },
   { path: 'add-category', component: AddCategoryComponent },

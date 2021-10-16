@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Transaction } from '../../model/transaction';
-import { Category } from '../../model/category';
 
 @Pipe({
   name: 'transaction'
@@ -26,6 +25,20 @@ export class TransactionPipe implements PipeTransform {
     }
 
     return transactions;
+  }
+
+  filtersavings(transactions: Transaction[], year: number) {
+
+    if (!transactions) {
+      return null;
+    }
+
+    if (year && year != 0) {
+      transactions = transactions.filter(tx=> new Date(tx.date).getFullYear() == year);
+    }
+    transactions = transactions.filter(tx=>tx.category.id == 44 || tx.category.id == 26 || tx.category.id == 27);
+
+    return transactions
   }
 
 }

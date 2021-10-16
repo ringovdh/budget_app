@@ -33,9 +33,9 @@ export class TransactionListComponent implements OnInit {
   avgNegative = 0.0;
 
   constructor (private transactionService: TransactionService,
-    private modalService: NgbModal,
-    private categoryService: CategoryService,
-    private transactionPipe: TransactionPipe ) {
+               private modalService: NgbModal,
+               private categoryService: CategoryService,
+               protected transactionPipe: TransactionPipe ) {
 
   }
 
@@ -87,7 +87,7 @@ export class TransactionListComponent implements OnInit {
       this.importedFilteredTransactions = this.filteredTransactions;
       this.numberOfTransactions = this.filteredTransactions.length;
       this.calculateAmounts();
-      this.retreiveCategoryLabel(this.category_id);
+      this.retrieveCategoryLabel(this.category_id);
     }
   }
 
@@ -117,7 +117,7 @@ export class TransactionListComponent implements OnInit {
     }
   }
 
-  private retreiveCategoryLabel(category_id) {
+  private retrieveCategoryLabel(category_id) {
     const _cat = this.categories.find( ({ id }) => id == category_id );
     this.category_label = _cat.label;
   }

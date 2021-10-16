@@ -18,6 +18,7 @@ import { registerLocaleData } from '@angular/common';
 import localeBE from '@angular/common/locales/be';
 import { TransactionOverviewComponent } from './components/transaction/transaction-overview/transaction-overview.component';
 import { TransactionPerCategoryComponent } from './components/transaction/transaction-per-category/transaction-per-category.component';
+import { SavingComponent } from './components/saving/saving/saving.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { TransactionPerCategoryComponent } from './components/transaction/transa
     EditCommentComponent,
     TransactionOverviewComponent,
     TransactionPerCategoryComponent,
+    SavingComponent,
   ],
   imports: [
     BrowserModule,
