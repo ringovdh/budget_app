@@ -1,4 +1,4 @@
-<div class="panel-body table-responsive">
+
   <table class = "table table-bordered table-striped">
     <thead>
     <tr>
@@ -16,7 +16,7 @@
       <td>{{ tx.date | date:'d/MM/yyyy' }}</td>
       <td>{{ tx.comment }}</td>
       <td>{{ tx.sign }} {{ tx.amount }}€</td>
-      <td><i class="fa {{tx.category.icon}}" ></i></td>
+      <td title="{{tx.category.label}}"><i class="fa {{tx.category.icon}}"></i></td>
       <td>
         <ul class="action-list">
           <li><a (click)="openEditTransactionForm(tx)" class="btn btn-primary"><i class="fa fa-pencil"></i></a></li>
@@ -25,9 +25,7 @@
     </tr>
     </tbody>
   </table>
-</div>
-<div class="panel-footer">
-  <div class="row">
+  <div class="row" id="pagination">
     <div class="col-sm-6">
       toon <b>5</b> van de <b>{{ numberOfTransactions }}</b> items
     </div>
@@ -39,4 +37,6 @@
       </pagination-controls>
     </div>
   </div>
-</div>
+
+
+

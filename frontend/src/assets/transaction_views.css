@@ -18,7 +18,7 @@
 }
 
 .panel .panel-body{
-  padding: 10px;
+  padding: 10px 10px 0 10px;
   border-radius: 0 0 10px 10px;
   background: #f5f7f8;
 }
@@ -85,6 +85,15 @@
 }
 
 .panel .panel-footer {
+  color: #f5f7f8;
+  background: #7d97a5;
+  font-size: 17px;
+  line-height: 33px;
+  padding: 25px 15px;
+  border-radius: 0 0 8px 8px;
+}
+
+#pagination {
   color: #f5f7f8;
   background: #7d97a5;
   font-size: 17px;

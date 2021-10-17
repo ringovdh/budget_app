@@ -80,7 +80,7 @@
               <td>{{ tx.date | date:'d/MM/yyyy' }}</td>
               <td>{{ tx.comment }}</td>
               <td>{{ tx.sign }} {{ tx.amount }}€</td>
-              <td><i class="fa {{tx.category.icon}}" ></i></td>
+              <td title="{{tx.category.label}}"><i class="fa {{tx.category.icon}}" ></i></td>
               <td>
                 <ul class="action-list">
                   <li><a (click)="openEditTransactionForm(tx)" class="btn btn-primary"><i class="fa fa-pencil"></i></a></li>
