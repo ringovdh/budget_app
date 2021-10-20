@@ -1,0 +1,13 @@
+.dropdown-menu {
+  background-color: #303E45;
+}
+ .dropdown-item {
+   color: #9eb1bb;
+   text-decoration: none;
+   font-size: 20px;
+ }
+
+.dropdown-menu > li > a:hover {
+  background-color: #303E45;
+  color: white;
+}
