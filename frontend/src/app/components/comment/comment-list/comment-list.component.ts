@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Comment } from '../../../model/comment'
 import { CommentService } from '../../../service/comment-service';
 import { EditCommentComponent } from "../edit-comment/edit-comment.component";
-import { AddCommentComponent } from "../../comment/add-comment/add-comment.component";
+import { AddCommentComponent } from "../add-comment/add-comment.component";
 
 @Component({
   selector: 'app-comment-list',
@@ -32,7 +32,7 @@ export class CommentListComponent implements OnInit {
   }
 
   deleteComment(id: number) {
-    this.commentService.deleteComment(id).subscribe(data=> {
+    this.commentService.deleteComment(id).subscribe(()=> {
       this.loadComments();
       this.numberOfComments --;
     });

@@ -5,7 +5,6 @@ import { ImportService } from '../../service/import-service';
 import { Transaction } from '../../model/transaction';
 import { AddTransactionComponent } from '../transaction/add-transaction/add-transaction.component';
 import {Category} from "../../model/category";
-import {TransactionService} from "../../service/transaction-service";
 
 @Component({
   selector: 'import',
@@ -25,7 +24,7 @@ export class ImportComponent implements OnInit {
   infoTxSaldo = 0;
   p:number = 1;
 
-  constructor(private formBuilder: FormBuilder, private modalService: NgbModal, private importService: ImportService, private transactionService: TransactionService) { }
+  constructor(private formBuilder: FormBuilder, private modalService: NgbModal, private importService: ImportService) { }
 
   ngOnInit() {
     this.submitted = false;
@@ -52,6 +51,11 @@ export class ImportComponent implements OnInit {
     }
   }
 
+  openNewTransactionForm(){
+    this.openFormModal(new Transaction());
+
+  }
+
   openFormModal(tx) {
     this.transaction = tx;
     if (null == tx.category) {
@@ -76,10 +80,6 @@ export class ImportComponent implements OnInit {
     } else {
       this.infoTxSaldo = this.infoTxSaldo + tx.amount
     }
-  }
-
-  private initSaldo() {
-    //this.transactionService.findByMonth();
   }
 
 }

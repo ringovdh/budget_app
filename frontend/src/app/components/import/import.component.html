@@ -40,7 +40,16 @@
         <div class="panel">
           <div class="panel-heading">
             <div class="row">
-              <h3 class="card-title text-center">{{ numberOfTransactions }} Onbewerkte transacties</h3>
+              <div class="col-8">
+                <div class="card-title text-center">
+                  <h3 >{{ numberOfTransactions }} Onbewerkte transacties</h3>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class ="card-button">
+                  <a (click)="openNewTransactionForm()" class="btn"><i class="fa fa-plus-circle"></i> Voeg nieuwe transactie toe</a>
+                </div>
+              </div>
             </div>
           </div>
           <div class="panel-body table-responsive">

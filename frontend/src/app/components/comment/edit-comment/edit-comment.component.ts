@@ -16,9 +16,9 @@ export class EditCommentComponent implements OnInit {
   categories: Category[];
 
 
-  constructor(private activeModal: NgbActiveModal,
+  constructor(public activeModal: NgbActiveModal,
               private commentService: CommentService,
-    private categoryService: CategoryService) { }
+              private categoryService: CategoryService) { }
 
   ngOnInit() {
     this.categoryService.findAll().subscribe(data => {
@@ -30,7 +30,5 @@ export class EditCommentComponent implements OnInit {
     this.commentService.saveComment(this.comment).subscribe();
     this.activeModal.close(this.comment);
   }
-
-
 
 }
