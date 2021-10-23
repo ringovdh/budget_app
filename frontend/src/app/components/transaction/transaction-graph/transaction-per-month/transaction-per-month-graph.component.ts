@@ -17,13 +17,15 @@ export class TransactionPerMonthGraphComponent implements OnChanges {
   ngOnChanges() {
 
     if (this.transactions != null) {
-      let categories = new Array();
-      let amount = new Array();
+      let categories = [];
+      let amounts = [];
+      let backgroundColors = [];
       const groups = this.groupAndCountPerCategory();
 
       for (const key in groups) {
         categories.push(key)
-        amount.push(groups[key])
+        amounts.push(groups[key][1])
+        backgroundColors.push(groups[key][0])
       }
 
       if (this.pieChart != null) {
@@ -34,15 +36,15 @@ export class TransactionPerMonthGraphComponent implements OnChanges {
         type: 'pie', data: {
           labels: categories,
           datasets: [
-            { data: amount,
+            { data: amounts,
               borderColor: '#303e45',
-              backgroundColor: "#7d97a5",
+              backgroundColor: backgroundColors,
             }
           ]
           },
           options: {
             legend: {
-              display: false
+              display: true
             },
             scales: {
               xAxes: [{
@@ -60,22 +62,23 @@ export class TransactionPerMonthGraphComponent implements OnChanges {
   public groupAndCountPerCategory() {
     const group = new Array();
     this.transactions.forEach(function(transaction) {
-      const cat = transaction.category.label;
+      const cat = transaction.category;
 
       //TODO remove hardcoded id's!
       if (transaction.category.id != 44 && transaction.category.id != 27 && transaction.category.id != 26) {
-        if (cat in group) {
+        if (!(cat.label in group)) {
           if (transaction.sign == '-') {
-            group[cat] = group[cat] - transaction.amount;
+            group[cat.label] = ['#28666e', 0-transaction.amount];
           } else {
-            group[cat] = group[cat] + transaction.amount;
+            group[cat.label] = ['#fedc97', transaction.amount];
           }
         } else {
           if (transaction.sign == '-') {
-            group[cat] = 0-transaction.amount;
+            group[cat.label][1] = group[cat.label][1] - transaction.amount;
           } else {
-            group[cat] = transaction.amount;
+            group[cat.label][1] = group[cat.label][1] + transaction.amount;
           }
+
         }
       }
     });

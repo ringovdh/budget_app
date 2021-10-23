@@ -29,12 +29,14 @@ export class TransactionPerCategoryGraphComponent implements OnChanges {
         this.lineChart.destroy();
       }
       this.lineChart = new Chart('lineChartCategories', {
-        type: 'line', data: {
+        type: 'line',
+        data: {
           labels: periods,
           datasets: [
             { data: amounts,
               borderColor: '#303e45',
               backgroundColor: "#7d97a5",
+              tension: 0,
             }
           ]
         },

@@ -31,6 +31,7 @@ export class TransactionListComponent implements OnInit {
   totalNegative = 0.0;
   avgPositive = 0.0;
   avgNegative = 0.0;
+  fixedCost = 0.0;
 
   constructor (private transactionService: TransactionService,
                private modalService: NgbModal,
@@ -87,15 +88,18 @@ export class TransactionListComponent implements OnInit {
       this.importedFilteredTransactions = this.filteredTransactions;
       this.numberOfTransactions = this.filteredTransactions.length;
       this.calculateAmounts();
-      this.retrieveCategoryLabel(this.category_id);
+      if (this.category_id != 0) {
+        this.retrieveCategoryLabel(this.category_id);
+      }
     }
   }
 
   private calculateAmounts() {
     let _totalNegative = 0;
-    let _totalPositive = 0
+    let _totalPositive = 0;
     let _countNegative = 0;
     let _countPositive = 0;
+    let _fixedCost = 0;
     this.filteredTransactions.forEach(function(transaction) {
       if (transaction.sign == '-') {
         _totalNegative =  _totalNegative + transaction.amount;
@@ -104,9 +108,11 @@ export class TransactionListComponent implements OnInit {
         _totalPositive = _totalPositive + transaction.amount;
         _countPositive ++;
       }
+      if (transaction.category.fixedcost) {
+        _fixedCost = _fixedCost + transaction.amount;
+      }
     });
-    this.avgNegative = 0;
-    this.avgPositive = 0;
+    this.fixedCost = _fixedCost;
     this.totalNegative = _totalNegative;
     this.totalPositive = _totalPositive;
     if (_countNegative > 0) {

@@ -45,6 +45,35 @@
       <div class="panel">
         <div class="panel-heading">
           <div class="row">
+            <h3 class="card-title text-center">Details</h3>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div>
+            <table width="100%">
+              <tr>
+                <td width="50%">uitgegeven = {{ totalNegative| number:'1.2-2':'be-BE' }}€</td>
+                <td>vaste kosten = {{ fixedCost| number:'1.2-2':'be-BE' }}€</td>
+              </tr>
+              <tr>
+                <td width="50%">ontvangen = {{ totalPositive| number:'1.2-2':'be-BE' }}€</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td width="50%">rest saldo = {{ totalPositive - totalNegative| number:'1.2-2':'be-BE' }}€</td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="row">
             <h3 class="card-title text-center">Grafiek</h3>
           </div>
         </div>
@@ -59,7 +88,7 @@
       <div class="panel">
         <div class="panel-heading">
           <div class="row">
-            <h3 class="card-title text-center">Transacties van {{ month }}</h3>
+            <h3 class="card-title text-center">Transacties van {{ month }} / {{ year}}</h3>
           </div>
         </div>
         <div class="panel-body table-responsive">

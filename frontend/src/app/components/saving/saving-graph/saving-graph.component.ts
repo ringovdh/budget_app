@@ -41,7 +41,9 @@ export class SavingGraphComponent implements OnChanges {
             },
             { data: this.savingLevels,
               type:'line',
-              borderColor: '#303e45',
+              tension:'0',
+              borderColor: '#F2962F',
+              backgroundColor: '#FFEACE',
               label:'bedrag'
             },
             ],
