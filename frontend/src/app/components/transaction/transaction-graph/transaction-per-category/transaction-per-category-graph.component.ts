@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges} from '@angular/core';
-import {Transaction} from "../../../../model/transaction";
 import { Chart } from 'chart.js';
+import {TxGroupDetails} from "../../model/TxGroupDetails";
+import {TxPerCategoryGroupDetails} from "../../model/TxPerCategoryGroupDetails";
 
 @Component({
   selector: 'app-transaction-per-category-graph',
@@ -9,81 +10,48 @@ import { Chart } from 'chart.js';
 })
 export class TransactionPerCategoryGraphComponent implements OnChanges {
 
-  @Input() transactions: Transaction[];
+  @Input() details: Map<string,TxGroupDetails>;
   lineChart: Chart;
 
   constructor() { }
 
   ngOnChanges() {
+    console.log('yow')
+
     let periods = [];
     let amounts = [];
-
-    if (this.transactions != null) {
-      const groups = this.groupAndCountPerMonth();
-
-      for (const key in groups) {
-        periods.push(key)
-        amounts.push(groups[key])
-      }
-      if (this.lineChart != null) {
-        this.lineChart.destroy();
-      }
-      this.lineChart = new Chart('lineChartCategories', {
-        type: 'line',
-        data: {
-          labels: periods,
-          datasets: [
-            { data: amounts,
-              borderColor: '#303e45',
-              backgroundColor: "#7d97a5",
-              tension: 0,
-            }
-          ]
-        },
-        options: {
-          legend: {
-            display: false
-          },
-          scales: {
-            xAxes: [{
-              display: true
-            }],
-            yAxes: [{
-              display: true
-            }],
-          }
-        }
-      });
+    let averages = [];
+    console.log(this.details)
+    this.details.forEach((value:TxGroupDetails, key:string) => {
+      periods.push(key);
+      amounts.push(value.getTotalAmount());
+      averages.push(value.average)
+    });
+    if (this.lineChart != null) {
+      this.lineChart.destroy();
     }
-  }
-
-  public groupAndCountPerMonth() {
-
-    let group = [];
-
-    this.transactions.forEach(function(transaction) {
-      let month = new Date(transaction.date).getMonth() + 1;
-      let year = new Date(transaction.date).getFullYear();
-      let period = month +'/'+year;
-      //TODO remove hardcoded id's!
-      if (transaction.category.id != 44 && transaction.category.id != 27 && transaction.category.id != 26) {
-        if (period in group) {
-          if (transaction.sign == '-') {
-            group[period] = group[period] - transaction.amount;
-          } else {
-            group[period] = group[period] + transaction.amount;
-          }
-        } else {
-          if (transaction.sign == '-') {
-            group[period] = 0-transaction.amount;
-          } else {
-            group[period] = transaction.amount;
-          }
+    this.lineChart = new Chart('lineChartCategories', {
+      type: 'line',
+      data: {
+        labels: periods,
+        datasets: [
+          { data: amounts,
+            borderColor: '#303e45',
+            tension: 0
+          },
+          { data: averages,
+            borderColor: '#F2962F',
+            tension: 0
+          }]
+      },
+      options: {
+        legend: {display: false},
+        scales: {
+          xAxes: [{display: true}],
+          yAxes: [{display: true}],
         }
       }
     });
-
-    return group;
   }
 
 }

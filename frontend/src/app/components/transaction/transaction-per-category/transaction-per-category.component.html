@@ -11,14 +11,13 @@
           <div class="form-group-row">
             <label for="category">Categorie</label>
             <select class="selectBox" id="category" [(ngModel)]="category_id" (ngModelChange)="changeCategory($event)">
-              <option value="0">-</option>
               <option *ngFor="let cat of categories" value="{{cat.id}}">{{ cat.label }}</option>
             </select>
           </div>
           <div class="form-group-row">
             <label for="year">Jaartal</label>
-            <select class="selectBox" id="year"[(ngModel)]="year" (ngModelChange)="changeYear($event)">
-              <option value="0">-</option>
+            <select disabled={{yearDisabled}} class="selectBox" id="year"[(ngModel)]="year" (ngModelChange)="changeYear($event)">
+              <option value="0">alle jaren</option>
               <option value="2021">2021</option>
               <option value="2020">2020</option>
               <option value="2019">2019</option>
@@ -39,14 +38,14 @@
         </div>
         <div class="panel-body">
           <div>
-            <table width="100%">
+            <table class="categoryDetailsTable">
               <tr>
-                <td width="50%">uitgegeven = {{ totalNegative| number:'1.2-2':'be-BE' }}€</td>
-                <td>gemiddeld = {{ avgNegative| number:'1.2-2':'be-BE' }}€ per maand</td>
+                <td>uitgegeven = {{ txPerCategoryDetails.totalNegative | number:'1.2-2':'be-BE' }}€</td>
+                <td>laatste gemiddeld maandbedrag = {{ txPerCategoryDetails.currentMonthAvg | number:'1.2-2':'be-BE' }}€</td>
               </tr>
               <tr>
-                <td width="50%">ontvangen = {{ totalPositive| number:'1.2-2':'be-BE' }}€</td>
-                <td>gemiddeld = {{ avgPositive| number:'1.2-2':'be-BE' }}€ per maand</td>
+                <td>ontvangen = {{ txPerCategoryDetails.totalPositive | number:'1.2-2':'be-BE' }}€</td>
+                <td>status: <i class="{{txPerCategoryDetails.currentMonthAvgStatus}}"></i></td>
               </tr>
             </table>
           </div>
@@ -59,12 +58,12 @@
       <div class="panel">
         <div class="panel-heading">
           <div class="row">
-            <h3 class="card-title text-center">Grafiek van de categorie: {{ category_label }} </h3>
+            <h3 class="card-title text-center">Grafiek van de categorie: {{ txPerCategoryDetails.category_label }} </h3>
           </div>
         </div>
         <div class="panel-body">
           <app-transaction-per-category-graph
-            [transactions]="filteredTransactions">
+            [details]="txPerCategoryDetails.groups">
           </app-transaction-per-category-graph>
         </div>
       </div>
@@ -75,11 +74,11 @@
       <div class="panel">
         <div class="panel-heading">
           <div class="row">
-            <h3 class="card-title text-center">Transacties in de categorie: {{ category_label }}</h3>
+            <h3 class="card-title text-center">Transacties in de categorie: {{ txPerCategoryDetails.category_label }}</h3>
           </div>
         </div>
         <div class="panel-body table-responsive">
-          <app-transaction-list [importedFilteredTransactions]="importedFilteredTransactions"></app-transaction-list>
+          <app-transaction-list [details]="txPerCategoryDetails.groups"> </app-transaction-list>
         </div>
       </div>
     </div>

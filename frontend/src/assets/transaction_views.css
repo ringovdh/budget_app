@@ -67,6 +67,10 @@
   box-shadow: 0 0 10px #3a4b53;
 }
 
+.categoryDetailsTable td {
+  width: 50%;
+}
+
 .form-group-row {
   padding: 10px 0;
 }

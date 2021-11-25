@@ -6,6 +6,8 @@ import { CategoryService } from '../../../service/category-service';
 import { Transaction } from '../../../model/transaction';
 import { Category } from '../../../model/category';
 import { AddTransactionComponent } from '../add-transaction/add-transaction.component';
+import {TxGroupDetails} from "../model/TxGroupDetails";
+import {isNull} from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: 'app-transaction-list',
@@ -15,16 +17,16 @@ import { AddTransactionComponent } from '../add-transaction/add-transaction.comp
 })
 export class TransactionListComponent implements OnInit {
 
+  @Input() filteredTransactions: Transaction[];
   @Input() importedFilteredTransactions: Transaction[];
+  @Input() details: Map<string,TxGroupDetails>;
   transaction: Transaction;
   transactions: Transaction[];
-  filteredTransactions: Transaction[];
   numberOfTransactions: number;
   p: number = 1;
   categories: Category[];
   submitted = false;
-  category_id = 0;
-  category_label = "";
+
   year = 0;
   month = 0;
   totalPositive = 0.0;
@@ -37,7 +39,6 @@ export class TransactionListComponent implements OnInit {
                private modalService: NgbModal,
                private categoryService: CategoryService,
                protected transactionPipe: TransactionPipe ) {
-
   }
 
   ngOnInit() {
@@ -67,11 +68,6 @@ export class TransactionListComponent implements OnInit {
     });
   }
 
-  protected changeCategory(selected_category) {
-    this.category_id = selected_category;
-    this.handleSelection();
-  }
-
   protected changeYear(selected_year){
     this.year = selected_year;
     this.handleSelection();
@@ -82,15 +78,15 @@ export class TransactionListComponent implements OnInit {
     this.handleSelection();
   }
 
+  protected filterBySelection(category_id, month, year) {
+    return this.transactionPipe.transform(this.transactions, category_id, year, month) ;
+  }
+
   protected handleSelection(){
-    this.filteredTransactions = this.transactionPipe.transform(this.transactions, this.category_id, this.year, this.month) ;
+    this.filteredTransactions = this.transactionPipe.transform(this.transactions, 0, this.year, this.month) ;
     if (this.filteredTransactions != null) {
-      this.importedFilteredTransactions = this.filteredTransactions;
       this.numberOfTransactions = this.filteredTransactions.length;
       this.calculateAmounts();
-      if (this.category_id != 0) {
-        this.retrieveCategoryLabel(this.category_id);
-      }
     }
   }
 
@@ -123,8 +119,15 @@ export class TransactionListComponent implements OnInit {
     }
   }
 
-  private retrieveCategoryLabel(category_id) {
-    const _cat = this.categories.find( ({ id }) => id == category_id );
-    this.category_label = _cat.label;
+
+  getAllTransactions() {
+    let transactions = [];
+    if (this.details) {
+      this.details.forEach((value: TxGroupDetails, key: string) => {
+        transactions.push.apply(transactions, value.transactions);
+      });
+      this.numberOfTransactions = transactions.length;
+      return transactions;
+    }
   }
 }

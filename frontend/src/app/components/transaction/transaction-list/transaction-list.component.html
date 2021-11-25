@@ -1,6 +1,5 @@
-
-  <table class = "table table-bordered table-striped">
-    <thead>
+<table class = "table table-bordered table-striped">
+  <thead>
     <tr>
       <th>#</th>
       <th>Datum</th>
@@ -9,9 +8,9 @@
       <th>Categorie</th>
       <th></th>
     </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let tx of importedFilteredTransactions | paginate: { itemsPerPage: 5, currentPage: p }">
+  </thead>
+  <tbody>
+    <tr *ngFor="let tx of getAllTransactions() | paginate: { itemsPerPage: 5, currentPage: p }">
       <td>{{ tx.number }}</td>
       <td>{{ tx.date | date:'d/MM/yyyy' }}</td>
       <td>{{ tx.comment }}</td>
@@ -23,20 +22,18 @@
         </ul>
       </td>
     </tr>
-    </tbody>
-  </table>
-  <div class="row" id="pagination">
-    <div class="col-sm-6">
-      toon <b>5</b> van de <b>{{ numberOfTransactions }}</b> items
-    </div>
-    <div class="col-sm-6">
-      <pagination-controls class="pagination"
-                           (pageChange)="p = $event"
-                           previousLabel=""
-                           nextLabel="">
-      </pagination-controls>
-    </div>
+  </tbody>
+</table>
+<div class="row" id="pagination">
+  <div class="col-sm-6">
+    toon <b>5</b> van de <b>{{ numberOfTransactions }}</b> items
   </div>
-
-
+  <div class="col-sm-6">
+    <pagination-controls class="pagination"
+                         (pageChange)="p = $event"
+                         previousLabel=""
+                         nextLabel="">
+    </pagination-controls>
+  </div>
+</div>
 
