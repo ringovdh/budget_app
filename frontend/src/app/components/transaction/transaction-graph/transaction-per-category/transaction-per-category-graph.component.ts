@@ -16,15 +16,13 @@ export class TransactionPerCategoryGraphComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges() {
-    console.log('yow')
 
     let periods = [];
     let amounts = [];
     let averages = [];
-    console.log(this.details)
     this.details.forEach((value:TxGroupDetails, key:string) => {
       periods.push(key);
-      amounts.push(value.getTotalAmount());
+      amounts.push(value.totalAmount);
       averages.push(value.average)
     });
     if (this.lineChart != null) {

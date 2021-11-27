@@ -73,10 +73,7 @@ export class TransactionListComponent implements OnInit {
     this.handleSelection();
   }
 
-  protected changeMonth(selected_month) {
-    this.month = selected_month
-    this.handleSelection();
-  }
+
 
   protected filterBySelection(category_id, month, year) {
     return this.transactionPipe.transform(this.transactions, category_id, year, month) ;

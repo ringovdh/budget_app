@@ -38,14 +38,14 @@
         </div>
         <div class="panel-body">
           <div>
-            <table class="categoryDetailsTable">
+            <table class="detailsTable">
               <tr>
                 <td>uitgegeven = {{ txPerCategoryDetails.totalNegative | number:'1.2-2':'be-BE' }}€</td>
                 <td>laatste gemiddeld maandbedrag = {{ txPerCategoryDetails.currentMonthAvg | number:'1.2-2':'be-BE' }}€</td>
               </tr>
               <tr>
                 <td>ontvangen = {{ txPerCategoryDetails.totalPositive | number:'1.2-2':'be-BE' }}€</td>
-                <td>status: <i class="{{txPerCategoryDetails.currentMonthAvgStatus}}"></i></td>
+                <td>status= <i class=" {{ txPerCategoryDetails.currentMonthAvgStatus}} "></i></td>
               </tr>
             </table>
           </div>

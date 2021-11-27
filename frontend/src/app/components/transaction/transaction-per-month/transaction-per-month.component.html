@@ -11,7 +11,6 @@
           <div class="form-group-row">
             <label for="month" class="col-sm-4 col-form-label">Maand</label>
             <select class="selectBox" id="month"[(ngModel)]="month" (ngModelChange)="changeMonth($event)">
-              <option value="0">-</option>
               <option value="01">januari</option>
               <option value="02">februari</option>
               <option value="03">maart</option>
@@ -28,8 +27,8 @@
           </div>
           <div class="form-group-row">
             <label for="year">Jaartal</label>
-            <select class="selectBox" id="year"[(ngModel)]="year" (ngModelChange)="changeYear($event)">
-              <option value="0">-</option>
+            <select disabled={{yearDisabled}} class="selectBox" id="year"[(ngModel)]="year" (ngModelChange)="changeYear($event)">
+              <option value="0">alle jaren</option>
               <option value="2021">2021</option>
               <option value="2020">2020</option>
               <option value="2019">2019</option>
@@ -50,18 +49,18 @@
         </div>
         <div class="panel-body">
           <div>
-            <table width="100%">
+            <table class="detailsTable">
               <tr>
-                <td width="50%">uitgegeven = {{ totalNegative| number:'1.2-2':'be-BE' }}€</td>
-                <td>vaste kosten = {{ fixedCost| number:'1.2-2':'be-BE' }}€</td>
+                <td>uitgegeven = {{ txPerMonthDetails.totalNegative | number:'1.2-2':'be-BE' }}€</td>
+                <td>vaste kosten = {{ txPerMonthDetails.fixedCost | number:'1.2-2':'be-BE' }}€</td>
               </tr>
               <tr>
-                <td width="50%">ontvangen = {{ totalPositive| number:'1.2-2':'be-BE' }}€</td>
+                <td>ontvangen = {{ txPerMonthDetails.totalPositive | number:'1.2-2':'be-BE' }}€</td>
                 <td></td>
               </tr>
               <tr>
-                <td width="50%">rest saldo = {{ totalPositive - totalNegative| number:'1.2-2':'be-BE' }}€</td>
-                <td></td>
+                <td>rest saldo = {{ txPerMonthDetails.restSaldo | number:'1.2-2':'be-BE' }}€</td>
+                <td>status = <i class=" {{ txPerMonthDetails.currentMonthSaldoStatus }} "></i></td>
               </tr>
             </table>
           </div>
@@ -74,11 +73,13 @@
       <div class="panel">
         <div class="panel-heading">
           <div class="row">
-            <h3 class="card-title text-center">Grafiek</h3>
+            <h3 class="card-title text-center">Grafiek van {{ txPerMonthDetails.formattedMonth }}</h3>
           </div>
         </div>
         <div class="panel-body">
-          <app-transaction-per-month-graph [transactions]="filteredTransactions"></app-transaction-per-month-graph>
+          <app-transaction-per-month-graph
+            [details]="txPerMonthDetails.groups">
+          </app-transaction-per-month-graph>
         </div>
       </div>
     </div>
@@ -88,50 +89,11 @@
       <div class="panel">
         <div class="panel-heading">
           <div class="row">
-            <h3 class="card-title text-center">Transacties van {{ month }} / {{ year}}</h3>
+            <h3 class="card-title text-center">Transacties van {{ txPerMonthDetails.formattedMonth }}</h3>
           </div>
         </div>
         <div class="panel-body table-responsive">
-          <table class = "table table-bordered table-striped">
-            <thead>
-            <tr>
-              <th>#</th>
-              <th>Datum</th>
-              <th>Omschrijving</th>
-              <th>Bedrag</th>
-              <th>Categorie</th>
-              <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let tx of importedFilteredTransactions | paginate: { itemsPerPage: 5, currentPage: p }">
-              <td>{{ tx.number }}</td>
-              <td>{{ tx.date | date:'d/MM/yyyy' }}</td>
-              <td>{{ tx.comment }}</td>
-              <td>{{ tx.sign }} {{ tx.amount }}€</td>
-              <td title="{{tx.category.label}}"><i class="fa {{tx.category.icon}}" ></i></td>
-              <td>
-                <ul class="action-list">
-                  <li><a (click)="openEditTransactionForm(tx)" class="btn btn-primary"><i class="fa fa-pencil"></i></a></li>
-                </ul>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="panel-footer">
-          <div class="row">
-            <div class="col-sm-6">
-              toon <b>5</b> van de <b>{{ numberOfTransactions }}</b> items
-            </div>
-            <div class="col-sm-6">
-              <pagination-controls class="pagination"
-                                   (pageChange)="p = $event"
-                                   previousLabel=""
-                                   nextLabel="">
-              </pagination-controls>
-            </div>
-          </div>
+          <app-transaction-list [details]="txPerMonthDetails.groups"> </app-transaction-list>
         </div>
       </div>
     </div>

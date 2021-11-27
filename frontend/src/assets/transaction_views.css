@@ -67,7 +67,10 @@
   box-shadow: 0 0 10px #3a4b53;
 }
 
-.categoryDetailsTable td {
+.detailsTable {
+  width: 100%;
+}
+.detailsTable td {
   width: 50%;
 }
 
