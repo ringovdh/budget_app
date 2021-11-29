@@ -8,11 +8,14 @@ export class TxGroupDetails {
   totalAmount = 0;
   fixedCost = 0;
   average = 0;
+  inDetails: boolean;
   backgroundColor: string;
+  groupLabel: string;
 
-  constructor(transaction: Transaction) {
+  constructor(transaction: Transaction, inDetails: boolean, groupLabel: string) {
     this.transactions.push(transaction);
-    this.calculateAmounts();
+    this.inDetails = inDetails;
+    this.groupLabel = groupLabel;
   }
 
   public calculateAmounts() {

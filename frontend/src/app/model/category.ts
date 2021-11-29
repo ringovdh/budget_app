@@ -3,4 +3,5 @@ export class Category {
   icon: string
   label: string;
   fixedcost: boolean;
+  indetails: boolean;
 }

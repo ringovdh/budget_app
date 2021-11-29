@@ -11,6 +11,7 @@ public class Category {
     public String label;
     public String icon;
     public boolean fixedcost;
+    public boolean indetails;
 
     public Category() {}
 
@@ -46,5 +47,13 @@ public class Category {
 
     public void setFixedcost(boolean fixedcost) {
         this.fixedcost = fixedcost;
+    }
+
+    public boolean isIndetails() {
+        return indetails;
+    }
+
+    public void setIndetails(boolean indetails) {
+        this.indetails = indetails;
     }
 }

@@ -121,7 +121,9 @@ export class TransactionListComponent implements OnInit {
     let transactions = [];
     if (this.details) {
       this.details.forEach((value: TxGroupDetails, key: string) => {
-        transactions.push.apply(transactions, value.transactions);
+        if (value.inDetails) {
+          transactions.push.apply(transactions, value.transactions);
+        }
       });
       this.numberOfTransactions = transactions.length;
       return transactions;

@@ -58,7 +58,7 @@ export class TransactionPerYearGraphComponent implements OnChanges {
     const group = new Array();
     this.transactions.forEach(function(transaction) {
       const cat = transaction.category.label;
-console.log("filter")
+
       //TODO remove hardcoded id's!
       if (transaction.category.id != 44 && transaction.category.id != 27 && transaction.category.id != 26) {
         if (cat in group) {

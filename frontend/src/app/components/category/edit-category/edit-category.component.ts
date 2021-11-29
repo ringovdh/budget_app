@@ -12,7 +12,7 @@ export class EditCategoryComponent implements OnInit {
 
   category: Category;
 
-  constructor(private activeModal: NgbActiveModal,
+  constructor(public activeModal: NgbActiveModal,
               private categoryService: CategoryService) { }
 
   ngOnInit() {

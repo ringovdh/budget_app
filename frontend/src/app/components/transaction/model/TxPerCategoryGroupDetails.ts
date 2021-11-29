@@ -46,7 +46,7 @@ export class TxPerCategoryGroupDetails {
 
       this.totalPositive = this.totalPositive + value.totalPositive;
       this.totalNegative = this.totalNegative + value.totalNegative;
-      _totalAmount = _totalAmount + value.getTotalAmount();
+      _totalAmount = _totalAmount + value.totalAmount;
       value.average = _totalAmount / _numberOfGroups;
 
       if (_numberOfGroups == this.groups.size-1) {
@@ -70,11 +70,12 @@ export class TxPerCategoryGroupDetails {
 
     transactions.forEach ((transaction) => {
       let _period = this.getPeriodLabel(transaction.date);
+      let _inDetails = transaction.category.indetails;
 
       if (groups.has(_period)) {
         groups.get(_period).transactions.push(transaction);
       } else {
-        let groupDetails = new TxGroupDetails(transaction);
+        let groupDetails = new TxGroupDetails(transaction, _inDetails, _period);
         groups.set(_period, groupDetails);
       }
     });

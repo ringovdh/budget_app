@@ -22,6 +22,7 @@
               <th></th>
               <th>Label</th>
               <th>Vaste Kost</th>
+              <th>Opnemen in details</th>
               <th></th>
             </tr>
           </thead>
@@ -31,6 +32,9 @@
               <td>{{ cat.label }}</td>
               <td>
                 <i [ngClass]="{'fa fa-check':cat.fixedcost === true}"></i>
+              </td>
+              <td>
+                <i [ngClass]="{'fa fa-check':cat.indetails === true}"></i>
               </td>
               <td>
                 <ul class="action-list">

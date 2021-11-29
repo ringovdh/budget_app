@@ -22,9 +22,11 @@ export class TransactionPerMonthGraphComponent implements OnChanges {
       let amounts = [];
       let backgroundColors = [];
       this.details.forEach((value:TxGroupDetails, key:string) => {
-        periods.push(key);
-        amounts.push(value.totalAmount);
-        backgroundColors.push(value.backgroundColor);
+        if (value.inDetails) {
+          periods.push(key);
+          amounts.push(value.totalAmount);
+          backgroundColors.push(value.backgroundColor);
+        }
       });
 
       if (this.pieChart != null) {
