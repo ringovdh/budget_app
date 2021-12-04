@@ -1,10 +1,10 @@
-import { Component, OnInit} from '@angular/core';
-import { TransactionService } from '../../../service/transaction-service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Category } from '../../../model/category';
-import { Comment } from '../../../model/comment';
-import { CategoryService } from '../../../service/category-service';
-import { CommentService } from '../../../service/comment-service';
+import {Component, OnInit} from '@angular/core';
+import {TransactionService} from '../../../service/transaction-service';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {Category} from '../../../model/category';
+import {Comment} from '../../../model/comment';
+import {CategoryService} from '../../../service/category-service';
+import {CommentService} from '../../../service/comment-service';
 import {Transaction} from "../../../model/transaction";
 
 @Component({
@@ -20,10 +20,11 @@ export class AddTransactionComponent implements OnInit {
   transaction: Transaction;
   searchterm_check: boolean;
 
-  constructor(private activeModal: NgbActiveModal,
+  constructor(public activeModal: NgbActiveModal,
               private transactionService: TransactionService,
-              private categoryService:CategoryService,
-              private commentService:CommentService) { }
+              private categoryService: CategoryService,
+              private commentService: CommentService) {
+  }
 
   ngOnInit() {
     this.categoryService.findAll().subscribe(data => {

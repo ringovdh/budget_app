@@ -61,7 +61,7 @@ export class ImportComponent implements OnInit {
     if (null == tx.category) {
       tx.category = new Category();
     }
-    const modalRef = this.modalService.open(AddTransactionComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(AddTransactionComponent, { size: 'lg', windowClass: 'modal-transactions'});
     modalRef.componentInstance.transaction = this.transaction;
     modalRef.result.then((result) => {
     if (result) {

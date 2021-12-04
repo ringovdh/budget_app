@@ -1,25 +1,24 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TransactionPipe} from '../../category/transaction.pipe';
-import { TransactionService } from '../../../service/transaction-service';
-import { CategoryService } from '../../../service/category-service';
-import { Transaction } from '../../../model/transaction';
-import { Category } from '../../../model/category';
-import { AddTransactionComponent } from '../add-transaction/add-transaction.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {TransactionPipe} from '../../category/transaction.pipe';
+import {TransactionService} from '../../../service/transaction-service';
+import {CategoryService} from '../../../service/category-service';
+import {Transaction} from '../../../model/transaction';
+import {Category} from '../../../model/category';
+import {AddTransactionComponent} from '../add-transaction/add-transaction.component';
 import {TxGroupDetails} from "../model/TxGroupDetails";
-import {isNull} from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: 'app-transaction-list',
   templateUrl: './transaction-list.component.html',
   styleUrls: ['../../../../assets/transaction_views.css'],
-  providers: [ TransactionPipe ]
+  providers: [TransactionPipe]
 })
 export class TransactionListComponent implements OnInit {
 
   @Input() filteredTransactions: Transaction[];
   @Input() importedFilteredTransactions: Transaction[];
-  @Input() details: Map<string,TxGroupDetails>;
+  @Input() details: Map<string, TxGroupDetails>;
   transaction: Transaction;
   transactions: Transaction[];
   numberOfTransactions: number;
@@ -35,10 +34,10 @@ export class TransactionListComponent implements OnInit {
   avgNegative = 0.0;
   fixedCost = 0.0;
 
-  constructor (private transactionService: TransactionService,
-               private modalService: NgbModal,
-               private categoryService: CategoryService,
-               protected transactionPipe: TransactionPipe ) {
+  constructor(private transactionService: TransactionService,
+              private modalService: NgbModal,
+              private categoryService: CategoryService,
+              protected transactionPipe: TransactionPipe) {
   }
 
   ngOnInit() {
@@ -55,32 +54,31 @@ export class TransactionListComponent implements OnInit {
 
   openEditTransactionForm(tx) {
     this.transaction = tx;
-    const modalRef = this.modalService.open(AddTransactionComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(AddTransactionComponent, {size: 'lg', windowClass: 'modal-transactions'});
     modalRef.componentInstance.transaction = this.transaction;
     modalRef.componentInstance.searchterm = "";
     modalRef.componentInstance.searchterm_check = false;
     modalRef.result.then((result) => {
       if (result) {
         let index = this.transactions.indexOf(result);
-        this.transactions.splice(index,1);
+        this.transactions.splice(index, 1);
         this.submitted = true;
       }
     });
   }
 
-  protected changeYear(selected_year){
+  protected changeYear(selected_year) {
     this.year = selected_year;
     this.handleSelection();
   }
 
 
-
   protected filterBySelection(category_id, month, year) {
-    return this.transactionPipe.transform(this.transactions, category_id, year, month) ;
+    return this.transactionPipe.transform(this.transactions, category_id, year, month);
   }
 
-  protected handleSelection(){
-    this.filteredTransactions = this.transactionPipe.transform(this.transactions, 0, this.year, this.month) ;
+  protected handleSelection() {
+    this.filteredTransactions = this.transactionPipe.transform(this.transactions, 0, this.year, this.month);
     if (this.filteredTransactions != null) {
       this.numberOfTransactions = this.filteredTransactions.length;
       this.calculateAmounts();
@@ -93,13 +91,13 @@ export class TransactionListComponent implements OnInit {
     let _countNegative = 0;
     let _countPositive = 0;
     let _fixedCost = 0;
-    this.filteredTransactions.forEach(function(transaction) {
+    this.filteredTransactions.forEach(function (transaction) {
       if (transaction.sign == '-') {
-        _totalNegative =  _totalNegative + transaction.amount;
-        _countNegative ++;
+        _totalNegative = _totalNegative + transaction.amount;
+        _countNegative++;
       } else {
         _totalPositive = _totalPositive + transaction.amount;
-        _countPositive ++;
+        _countPositive++;
       }
       if (transaction.category.fixedcost) {
         _fixedCost = _fixedCost + transaction.amount;
@@ -120,7 +118,7 @@ export class TransactionListComponent implements OnInit {
   getAllTransactions() {
     let transactions = [];
     if (this.details) {
-      this.details.forEach((value: TxGroupDetails, key: string) => {
+      this.details.forEach((value: TxGroupDetails) => {
         if (value.inDetails) {
           transactions.push.apply(transactions, value.transactions);
         }
