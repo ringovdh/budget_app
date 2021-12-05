@@ -1,36 +1,43 @@
 import {TxGroupDetails} from "./TxGroupDetails";
 
-export class TxPerMonthGroupDetails {
+export class TxPerYearGroupDetails {
 
-  formattedMonth: string;
   groups: Map<string, TxGroupDetails>;
   totalNegative = 0;
   totalPositive = 0;
   restSaldo = 0;
-  fixedCost = 0;
   savings = 0;
-  currentMonthSaldoStatus = "fa fa-equals";
+  currentYearSaldoStatus = "fa fa-equals";
 
   public resetAmounts() {
     this.totalNegative = 0;
     this.totalPositive = 0;
     this.restSaldo = 0;
-    this.fixedCost = 0;
     this.savings = 0;
   }
 
-  public setFormattedMont(year, month) {
-    if (year == 0) {
-      this.formattedMonth = month;
-    } else {
-      this.formattedMonth = month + '/' + year;
-    }
+  groupAndCalculateTransactions(filteredTransactions) {
+    this.groupByYear(filteredTransactions);
+    this.calculateDetailsPerGroup();
+    this.calculateYearGroupDetails()
   }
 
-  public groupAndCalculateTransactions(filteredTransactions) {
-    this.groupByCategory(filteredTransactions);
-    this.calculateDetailsPerGroup();
-    this.calculateMonthGroupDetails()
+  private groupByYear(transactions) {
+    let groups: Map<string, TxGroupDetails> = new Map<string, TxGroupDetails>();
+
+    transactions.forEach((transaction) => {
+      let _cat = transaction.category.label;
+      let _inDetails = transaction.category.indetails;
+
+      if (groups.has(_cat)) {
+        groups.get(_cat).transactions.push(transaction);
+      } else {
+        let groupDetails = new TxGroupDetails(transaction, _inDetails, _cat);
+        groups.set(_cat, groupDetails);
+      }
+    });
+
+    this.groups = groups;
   }
 
   private calculateDetailsPerGroup() {
@@ -42,14 +49,14 @@ export class TxPerMonthGroupDetails {
     });
   }
 
-  private calculateMonthGroupDetails() {
+  private calculateYearGroupDetails() {
     let _savings = 0;
     let _nosavings = 0;
-    this.groups.forEach((value: TxGroupDetails) => {
+
+    this.groups.forEach((value: TxGroupDetails, key: string) => {
       if (value.inDetails) {
         this.totalPositive = this.totalPositive + value.totalPositive;
         this.totalNegative = this.totalNegative + value.totalNegative;
-        this.fixedCost = this.fixedCost + value.fixedCost;
       }
       if (value.groupLabel === 'Sparen') {
         _savings = value.totalAmount;
@@ -64,10 +71,10 @@ export class TxPerMonthGroupDetails {
     this.restSaldo = this.totalPositive - this.totalNegative;
     this.calculateSavings(_savings, _nosavings);
     if (this.restSaldo < 0) {
-      this.currentMonthSaldoStatus = "fa fa-thumbs-down";
+      this.currentYearSaldoStatus = "fa fa-thumbs-down";
     }
     if (this.restSaldo > 0) {
-      this.currentMonthSaldoStatus = "fa fa-thumbs-up";
+      this.currentYearSaldoStatus = "fa fa-thumbs-up";
     }
   }
 
@@ -79,23 +86,4 @@ export class TxPerMonthGroupDetails {
       this.savings = _savings;
     }
   }
-
-  private groupByCategory(transactions) {
-    let groups: Map<string, TxGroupDetails> = new Map<string, TxGroupDetails>();
-
-    transactions.forEach((transaction) => {
-      let _cat = transaction.category;
-      let _inDetails = _cat.indetails;
-      let _categoryLabel = _cat.label
-      if (groups.has(_categoryLabel)) {
-        groups.get(_cat.label).transactions.push(transaction);
-      } else {
-        let groupDetails = new TxGroupDetails(transaction, _inDetails, _categoryLabel);
-        groups.set(_categoryLabel, groupDetails);
-      }
-    });
-
-    this.groups = groups;
-  }
-
 }

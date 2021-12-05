@@ -34,7 +34,7 @@ export class TransactionPerCategoryComponent extends TransactionListComponent {
   public changeYear(selected_year) {
     this.year = selected_year;
     this.txPerCategoryDetails.resetAmounts();
-    this.groupAndCalculateTransactions();;
+    this.groupAndCalculateTransactions();
   }
 
   private groupAndCalculateTransactions() {

@@ -10,7 +10,7 @@
         <div class="panel-body">
           <div class="form-group-row">
             <label for="year">Jaartal</label>
-            <select class="selectBox" id="year"[(ngModel)]="year" (ngModelChange)="changeYear($event)">
+            <select class="selectBox" id="year" [(ngModel)]="year" (ngModelChange)="changeYear($event)">
               <option value="0">-</option>
               <option value="2021">2021</option>
               <option value="2020">2020</option>
@@ -27,11 +27,42 @@
       <div class="panel">
         <div class="panel-heading">
           <div class="row">
-            <h3 class="card-title text-center">Grafiek</h3>
+            <h3 class="card-title text-center">Details</h3>
           </div>
         </div>
         <div class="panel-body">
-          <app-transaction-per-year-graph [transactions]="filteredTransactions"></app-transaction-per-year-graph>
+          <div>
+            <table class="detailsTable">
+              <tr>
+                <td>uitgegeven = {{ txPerYearGroupDetails.totalNegative | number:'1.2-2':'be-BE' }}€</td>
+                <td>gespaard = {{ txPerYearGroupDetails.savings | number:'1.2-2':'be-BE' }}€</td>
+              </tr>
+              <tr>
+                <td>ontvangen = {{ txPerYearGroupDetails.totalPositive | number:'1.2-2':'be-BE' }}€</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>rest saldo = {{ txPerYearGroupDetails.restSaldo | number:'1.2-2':'be-BE' }}€</td>
+                <td>status = <i class=" {{ txPerYearGroupDetails.currentYearSaldoStatus }} "></i></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="row">
+            <h3 class="card-title text-center">Grafiek van {{ year }}</h3>
+          </div>
+        </div>
+        <div class="panel-body">
+          <app-transaction-per-year-graph
+            [details]="txPerYearGroupDetails.groups">
+          </app-transaction-per-year-graph>
         </div>
       </div>
     </div>
@@ -45,7 +76,7 @@
           </div>
         </div>
         <div class="panel-body table-responsive">
-          <app-transaction-list [importedFilteredTransactions]="importedFilteredTransactions"></app-transaction-list>
+          <app-transaction-list [details]="txPerYearGroupDetails.groups"></app-transaction-list>
         </div>
       </div>
     </div>

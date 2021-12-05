@@ -1,11 +1,9 @@
-import {Transaction} from "../../../model/transaction";
 import {TxGroupDetails} from "./TxGroupDetails";
-import {Category} from "../../../model/category";
 
 export class TxPerCategoryGroupDetails {
 
   category_label: string;
-  groups: Map<string,TxGroupDetails>;
+  groups: Map<string, TxGroupDetails>;
   totalNegative = 0;
   totalPositive = 0;
   currentMonthAvg = 0;
@@ -17,20 +15,20 @@ export class TxPerCategoryGroupDetails {
   }
 
   public setCategoryLabel(categories, category_id) {
-    const _cat = categories.find( ({ id }) => id == category_id );
-    this.category_label =  _cat.label;
+    const _cat = categories.find(({id}) => id == category_id);
+    this.category_label = _cat.label;
   }
 
   public groupAndCalculateTransactions(filteredTransactions) {
     this.groupByMonth(filteredTransactions);
     this.calculateDetailsPerGroup();
-    this.calculateCategoryGroupDetails()
+    this.calculateCategoryGroupDetails();
   }
 
   private calculateDetailsPerGroup() {
-    let groupDetails:TxGroupDetails;
+    let groupDetails: TxGroupDetails;
 
-    this.groups.forEach((value:TxGroupDetails, key:string) => {
+    this.groups.forEach((value: TxGroupDetails, key: string) => {
       groupDetails = this.groups.get(key);
       groupDetails.calculateAmounts();
     });
@@ -49,7 +47,7 @@ export class TxPerCategoryGroupDetails {
       _totalAmount = _totalAmount + value.totalAmount;
       value.average = _totalAmount / _numberOfGroups;
 
-      if (_numberOfGroups == this.groups.size-1) {
+      if (_numberOfGroups == this.groups.size - 1) {
         _previousMonthAvg = value.average;
       }
 
@@ -66,9 +64,9 @@ export class TxPerCategoryGroupDetails {
   }
 
   private groupByMonth(transactions) {
-    let groups: Map<string,TxGroupDetails> = new Map<string,TxGroupDetails>();
+    let groups: Map<string, TxGroupDetails> = new Map<string, TxGroupDetails>();
 
-    transactions.forEach ((transaction) => {
+    transactions.forEach((transaction) => {
       let _period = this.getPeriodLabel(transaction.date);
       let _inDetails = transaction.category.indetails;
 
