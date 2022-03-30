@@ -11,6 +11,7 @@ import { TransactionPerYearComponent } from './transaction-per-year/transaction-
 import { TransactionPerCategoryGraphComponent } from './transaction-graph/transaction-per-category/transaction-per-category-graph.component';
 import { SavingGraphComponent } from './../saving/saving-graph/saving-graph.component';
 import {NgxPaginationModule} from "ngx-pagination";
+import {TransactionLimitsComponent} from "./transaction-per-month/transaction-limits/transaction-limits.component";
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import {NgxPaginationModule} from "ngx-pagination";
     TransactionListComponent,
     TransactionPerMonthGraphComponent,
     TransactionPerYearGraphComponent,
+    TransactionLimitsComponent,
     AddTransactionComponent,
     TransactionPipe,
     TransactionPerMonthComponent,
@@ -34,6 +36,7 @@ import {NgxPaginationModule} from "ngx-pagination";
     TransactionPerMonthGraphComponent,
     TransactionPerYearGraphComponent,
     TransactionListComponent,
+    TransactionLimitsComponent,
     TransactionPerYearComponent,
     TransactionPerMonthComponent,
     TransactionPerCategoryGraphComponent,

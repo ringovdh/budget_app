@@ -1,9 +1,11 @@
 import {TxGroupDetails} from "./TxGroupDetails";
+import {CategoryBudget} from "./CategoryBudget";
 
 export class TxPerMonthGroupDetails {
 
   formattedMonth: string;
   groups: Map<string, TxGroupDetails>;
+  categoryBudgets: CategoryBudget[];
   totalNegative = 0;
   totalPositive = 0;
   restSaldo = 0;
@@ -30,7 +32,8 @@ export class TxPerMonthGroupDetails {
   public groupAndCalculateTransactions(filteredTransactions) {
     this.groupByCategory(filteredTransactions);
     this.calculateDetailsPerGroup();
-    this.calculateMonthGroupDetails()
+    this.calculateMonthGroupDetails();
+    this.calculateCategoryBudget();
   }
 
   private calculateDetailsPerGroup() {
@@ -42,22 +45,50 @@ export class TxPerMonthGroupDetails {
     });
   }
 
+  public calculateCategoryBudget() {
+    let groupDetails: TxGroupDetails;
+    this.categoryBudgets = [];
+
+    this.groups.forEach((value: TxGroupDetails, key: string) => {
+
+      if (value.category.inmonitor) {
+        groupDetails = this.groups.get(key);
+        let categoryBudget = new CategoryBudget();
+        categoryBudget.total = Math.abs(groupDetails.totalAmount);
+        categoryBudget.limit = groupDetails.category.limitamount;
+        this.countLimitSaldo(categoryBudget)
+        categoryBudget.categoryLabel = groupDetails.category.label;
+        this.categoryBudgets.push(categoryBudget);
+      }
+    });
+  }
+
+  private countLimitSaldo(categoryBudget: CategoryBudget) {
+    categoryBudget.saldo = categoryBudget.limit - categoryBudget.total
+    if (categoryBudget.saldo < 0) {
+      categoryBudget.stateColor = '#e2144e'
+    } else {
+      categoryBudget.stateColor = '#c7e214'
+    }
+
+  }
+
   private calculateMonthGroupDetails() {
     let _savings = 0;
     let _nosavings = 0;
     this.groups.forEach((value: TxGroupDetails) => {
-      if (value.inDetails) {
+      if (value.category.indetails) {
         this.totalPositive = this.totalPositive + value.totalPositive;
         this.totalNegative = this.totalNegative + value.totalNegative;
         this.fixedCost = this.fixedCost + value.fixedCost;
       }
-      if (value.groupLabel === 'Sparen') {
+      if (value.category.label === 'Sparen') {
         _savings = value.totalAmount;
       }
-      if (value.groupLabel === 'Easy Save') {
+      if (value.category.label === 'Easy Save') {
         _savings = value.totalAmount;
       }
-      if (value.groupLabel === 'Opname spaargeld') {
+      if (value.category.label === 'Opname spaargeld') {
         _nosavings = value.totalAmount;
       }
     });
@@ -85,12 +116,13 @@ export class TxPerMonthGroupDetails {
 
     transactions.forEach((transaction) => {
       let _cat = transaction.category;
-      let _inDetails = _cat.indetails;
+      let _catLimit = _cat.limitamount;
       let _categoryLabel = _cat.label
       if (groups.has(_categoryLabel)) {
         groups.get(_cat.label).transactions.push(transaction);
       } else {
-        let groupDetails = new TxGroupDetails(transaction, _inDetails, _categoryLabel);
+        let groupDetails = new TxGroupDetails(transaction, _catLimit);
+        groupDetails.category = _cat;
         groups.set(_categoryLabel, groupDetails);
       }
     });

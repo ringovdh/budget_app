@@ -23,6 +23,8 @@
               <th>Label</th>
               <th>Vaste Kost</th>
               <th>Opnemen in details</th>
+              <th>Opnemen in monitoring</th>
+              <th>Limietbedrag</th>
               <th></th>
             </tr>
           </thead>
@@ -36,6 +38,10 @@
               <td>
                 <i [ngClass]="{'fa fa-check':cat.indetails === true}"></i>
               </td>
+              <td>
+                <i [ngClass]="{'fa fa-check':cat.inmonitor === true}"></i>
+              </td>
+              <td>{{ cat.limitamount }}€</td>
               <td>
                 <ul class="action-list">
                   <li><a (click)="openEditCategoryForm(cat)" class="btn btn-primary"><i class="fa fa-pencil"></i></a></li>

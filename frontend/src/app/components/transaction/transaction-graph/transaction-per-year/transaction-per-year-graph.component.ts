@@ -21,7 +21,7 @@ export class TransactionPerYearGraphComponent implements OnChanges {
     let periods = [];
 
     this.details.forEach((value: TxGroupDetails, key: string) => {
-      if (value.inDetails) {
+      if (value.category.indetails) {
         periods.push(key);
         amounts.push(value.totalAmount);
       }

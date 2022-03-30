@@ -19,18 +19,35 @@
             </div>
           </div>
         </div>
+          <div class="panel">
+            <div class="panel-heading">
+              <div class="row">
+                <h3 class="card-title text-center">Info</h3>
+              </div>
+            </div>
+            <div class="panel-body">
+              <div>
+                <p>uitgegeven = {{ txPerMonthDetails.totalNegative | number:'1.2-2':'be-BE' }}€</p>
+                <p>vaste kosten = {{ txPerMonthDetails.fixedCost | number:'1.2-2':'be-BE' }}€</p>
+                <p>ontvangen = {{ txPerMonthDetails.totalPositive | number:'1.2-2':'be-BE' }}€
+                <p>gespaard = {{ txPerMonthDetails.savings | number:'1.2-2':'be-BE' }}€
+                <p>rest saldo = {{ txPerMonthDetails.restSaldo | number:'1.2-2':'be-BE' }}€
+                <p>status = <i class=" {{ txPerMonthDetails.currentMonthSaldoStatus }} "></i>
+              </div>
+            </div>
+          </div>
       </div>
       <div class="col-8">
         <div class="panel">
           <div class="panel-heading">
             <div class="row">
-              <h3 class="card-title text-center">Info</h3>
+              <h3 class="card-title text-center">Budget</h3>
             </div>
           </div>
           <div class="panel-body">
-            <div>
-              Saldo = {{ infoTxSaldo| number:'1.2-2':'be-BE' }}€
-            </div>
+            <app-transaction-limits
+              [categoryBudgets]="txPerMonthDetails.categoryBudgets">
+            </app-transaction-limits>
           </div>
         </div>
       </div>

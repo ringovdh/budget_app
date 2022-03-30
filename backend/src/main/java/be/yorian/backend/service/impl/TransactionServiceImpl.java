@@ -1,26 +1,23 @@
 package be.yorian.backend.service.impl;
 
 import be.yorian.backend.entity.Transaction;
-import be.yorian.backend.repository.CommentRepository;
 import be.yorian.backend.repository.TransactionRepository;
 import be.yorian.backend.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    final
-    TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
 
-    final
-    CommentRepository commentRepository;
 
-    public TransactionServiceImpl(TransactionRepository transactionRepository, CommentRepository commentRepository) {
+    @Autowired
+    public TransactionServiceImpl(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
-        this.commentRepository = commentRepository;
     }
 
 

@@ -27,12 +27,11 @@ export class TxPerYearGroupDetails {
 
     transactions.forEach((transaction) => {
       let _cat = transaction.category.label;
-      let _inDetails = transaction.category.indetails;
 
       if (groups.has(_cat)) {
         groups.get(_cat).transactions.push(transaction);
       } else {
-        let groupDetails = new TxGroupDetails(transaction, _inDetails, _cat);
+        let groupDetails = new TxGroupDetails(transaction, transaction.category);
         groups.set(_cat, groupDetails);
       }
     });
@@ -54,17 +53,17 @@ export class TxPerYearGroupDetails {
     let _nosavings = 0;
 
     this.groups.forEach((value: TxGroupDetails, key: string) => {
-      if (value.inDetails) {
+      if (value.category.indetails) {
         this.totalPositive = this.totalPositive + value.totalPositive;
         this.totalNegative = this.totalNegative + value.totalNegative;
       }
-      if (value.groupLabel === 'Sparen') {
+      if (value.category.label === 'Sparen') {
         _savings = value.totalAmount;
       }
-      if (value.groupLabel === 'Easy Save') {
+      if (value.category.label === 'Easy Save') {
         _savings = value.totalAmount;
       }
-      if (value.groupLabel === 'Opname spaargeld') {
+      if (value.category.label === 'Opname spaargeld') {
         _nosavings = value.totalAmount;
       }
     });

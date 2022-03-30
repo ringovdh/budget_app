@@ -119,7 +119,7 @@ export class TransactionListComponent implements OnInit {
     let transactions = [];
     if (this.details) {
       this.details.forEach((value: TxGroupDetails) => {
-        if (value.inDetails) {
+        if (value.category.indetails) {
           transactions.push.apply(transactions, value.transactions);
         }
       });

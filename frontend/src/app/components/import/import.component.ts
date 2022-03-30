@@ -5,6 +5,7 @@ import { ImportService } from '../../service/import-service';
 import { Transaction } from '../../model/transaction';
 import { AddTransactionComponent } from '../transaction/add-transaction/add-transaction.component';
 import {Category} from "../../model/category";
+import {TxPerMonthGroupDetails} from "../transaction/model/TxPerMonthGroupDetails";
 
 @Component({
   selector: 'import',
@@ -17,16 +18,18 @@ export class ImportComponent implements OnInit {
   showUploadForm= true;
   selectedFile: null;
   transactions: Transaction[];
+  existingTransactions: Transaction[];
   transaction: Transaction;
   numberOfTransactions: number;
   submitted = false;
   noTransactions = false;
-  infoTxSaldo = 0;
-  p:number = 1;
+  p = 1;
+  txPerMonthDetails: TxPerMonthGroupDetails;
 
   constructor(private formBuilder: FormBuilder, private modalService: NgbModal, private importService: ImportService) { }
 
   ngOnInit() {
+    this.txPerMonthDetails = new TxPerMonthGroupDetails();
     this.submitted = false;
     this.uploadForm = this.formBuilder.group({
         profile: ['']
@@ -40,20 +43,24 @@ export class ImportComponent implements OnInit {
   }
 
   upload() {
+    this.transactions = [];
+    this.existingTransactions = [];
     this.importService.pushFileToBackend(this.selectedFile).subscribe(data => {
       this.transactions = data.filteredTransactions;
       this.numberOfTransactions = data.filteredTransactions.length;
-      this.infoTxSaldo = data.saldo;
+      this.existingTransactions = data.existingTransactions;
       this.showUploadForm = false;
+      this.txPerMonthDetails.groupAndCalculateTransactions(this.existingTransactions);
     });
-    if (this.transactions.length == 0){
+
+    if (this.transactions.length == 0) {
       this.noTransactions = true
     }
   }
 
-  openNewTransactionForm(){
-    this.openFormModal(new Transaction());
+  openNewTransactionForm() {
 
+    this.openFormModal(new Transaction());
   }
 
   openFormModal(tx) {
@@ -64,22 +71,15 @@ export class ImportComponent implements OnInit {
     const modalRef = this.modalService.open(AddTransactionComponent, { size: 'lg', windowClass: 'modal-transactions'});
     modalRef.componentInstance.transaction = this.transaction;
     modalRef.result.then((result) => {
-    if (result) {
-      this.calculateSaldo(tx);
-      let index = this.transactions.indexOf(result);
-      this.transactions.splice(index,1);
-      this.numberOfTransactions --;
-      this.submitted = true;
-    }
+      if (result) {
+        this.existingTransactions.push(tx);
+        this.txPerMonthDetails.groupAndCalculateTransactions(this.existingTransactions);
+        let index = this.transactions.indexOf(result);
+        this.transactions.splice(index,1);
+        this.numberOfTransactions --;
+        this.submitted = true;
+      }
     });
-  }
-
-  private calculateSaldo(tx) {
-    if (tx.sign== '-') {
-      this.infoTxSaldo = this.infoTxSaldo - tx.amount
-    } else {
-      this.infoTxSaldo = this.infoTxSaldo + tx.amount
-    }
   }
 
 }

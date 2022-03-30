@@ -36,7 +36,6 @@ export class AddTransactionComponent implements OnInit {
   }
 
   closeAndSave() {
-    console.log(this.transaction)
     this.transactionService.saveTransaction(this.transaction).subscribe();
     this.activeModal.close(this.transaction);
   }

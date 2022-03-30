@@ -12,6 +12,8 @@ public class Category {
     public String icon;
     public boolean fixedcost;
     public boolean indetails;
+    public boolean inmonitor;
+    public long limitamount;
 
     public Category() {}
 
@@ -55,5 +57,21 @@ public class Category {
 
     public void setIndetails(boolean indetails) {
         this.indetails = indetails;
+    }
+
+    public boolean isInmonitor() {
+        return inmonitor;
+    }
+
+    public void setInmonitor(boolean inmonitor) {
+        this.inmonitor = inmonitor;
+    }
+
+    public long getLimitamount() {
+        return limitamount;
+    }
+
+    public void setLimitamount(long limitamount) {
+        this.limitamount = limitamount;
     }
 }

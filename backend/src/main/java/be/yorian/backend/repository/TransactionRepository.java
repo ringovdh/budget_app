@@ -10,7 +10,7 @@ import java.sql.Date;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction,Long> {
 
-    @Query("select tx from Transaction tx where tx.date = ?1 and tx.number = ?2")
+    @Query(value = "select tx from Transaction tx where tx.date = ?1 and tx.number = ?2")
     Transaction findByDateAndNumber(Date date, String number);
 
 }

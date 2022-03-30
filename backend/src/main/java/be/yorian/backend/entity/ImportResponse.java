@@ -1,37 +1,28 @@
 package be.yorian.backend.entity;
 
-import java.util.Date;
 import java.util.List;
-
 
 public class ImportResponse {
 
-    private Date transactionPeriod;
     private List<Transaction> filteredTransactions;
-    private Double saldo;
+    private List<Transaction> existingTransactions;
 
-    public ImportResponse() {
-        this.saldo = (double) 0;
+
+    public List<Transaction> getFilteredTransactions() {
+        return filteredTransactions;
     }
 
     public void setFilteredTransactions(List<Transaction> filteredTransactions) {
         this.filteredTransactions = filteredTransactions;
     }
 
-    public Double getSaldo() {
-        return saldo;
+
+    public List<Transaction> getExistingTransactions() {
+        return existingTransactions;
     }
 
-    public void setSaldo(Double saldo) {
-        this.saldo = saldo;
+    public void setExistingTransactions(List<Transaction> existingTransactions) {
+        this.existingTransactions = existingTransactions;
     }
 
-
-    public void addAmount(Double amount) {
-        this.saldo = this.saldo + amount;
-    }
-
-    public List<Transaction> getFilteredTransactions() {
-        return filteredTransactions;
-    }
 }

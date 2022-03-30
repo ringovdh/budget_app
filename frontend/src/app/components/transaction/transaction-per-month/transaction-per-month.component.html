@@ -73,6 +73,22 @@
       <div class="panel">
         <div class="panel-heading">
           <div class="row">
+            <h3 class="card-title text-center">budget per categorie van {{ txPerMonthDetails.formattedMonth }}</h3>
+          </div>
+        </div>
+        <div class="panel-body">
+          <app-transaction-limits
+            [categoryBudgets]=txPerMonthDetails.categoryBudgets>
+          </app-transaction-limits>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="row">
             <h3 class="card-title text-center">Grafiek van {{ txPerMonthDetails.formattedMonth }}</h3>
           </div>
         </div>

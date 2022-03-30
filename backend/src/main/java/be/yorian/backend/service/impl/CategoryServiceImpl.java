@@ -3,18 +3,16 @@ package be.yorian.backend.service.impl;
 import be.yorian.backend.entity.Category;
 import be.yorian.backend.repository.CategoryRepository;
 import be.yorian.backend.service.CategoryService;
-
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-    
     private final CategoryRepository categoryRepository;
     
     
@@ -23,10 +21,9 @@ public class CategoryServiceImpl implements CategoryService {
     	this.categoryRepository = categoryRepository;
 	}
 
-    
     @Override
     public List<Category> getCategories() {
-		return (List<Category>) categoryRepository.findAll(sortByLabel());
+		return categoryRepository.findAll(sortByLabel());
 	}
     
     @Override
@@ -57,7 +54,6 @@ public class CategoryServiceImpl implements CategoryService {
 		
 	}
 
-	
 	private Sort sortByLabel() {
         return Sort.by("label").ascending();
     }	

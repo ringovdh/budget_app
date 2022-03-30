@@ -68,12 +68,11 @@ export class TxPerCategoryGroupDetails {
 
     transactions.forEach((transaction) => {
       let _period = this.getPeriodLabel(transaction.date);
-      let _inDetails = transaction.category.indetails;
 
       if (groups.has(_period)) {
         groups.get(_period).transactions.push(transaction);
       } else {
-        let groupDetails = new TxGroupDetails(transaction, _inDetails, _period);
+        let groupDetails = new TxGroupDetails(transaction, transaction.category);
         groups.set(_period, groupDetails);
       }
     });

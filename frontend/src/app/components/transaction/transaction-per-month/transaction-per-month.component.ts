@@ -41,4 +41,5 @@ export class TransactionPerMonthComponent extends TransactionListComponent {
     let filteredTransactions = this.filterBySelection(0, this.month, this.year);
     this.txPerMonthDetails.groupAndCalculateTransactions(filteredTransactions);
   }
+
 }

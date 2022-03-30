@@ -11,11 +11,11 @@ import java.util.List;
 
 public class ImportResponseHelper {
 
-    private TransactionRepository transactionRepository;
-    private CommentRepository commentRepository;
+    private final TransactionRepository transactionRepository;
+    private final CommentRepository commentRepository;
     private List<Comment> comments = new ArrayList<>();
     private final List<Transaction> transactions;
-    private ImportResponse response;
+    private final ImportResponse response;
 
 
     public ImportResponseHelper(TransactionRepository transactionRepository, CommentRepository commentRepository, List<Transaction> transactions) {
@@ -25,7 +25,6 @@ public class ImportResponseHelper {
         this.transactions = transactions;
         this.response = new ImportResponse();
     }
-
 
 
     public ImportResponse createImportResponse() {
@@ -44,31 +43,28 @@ public class ImportResponseHelper {
     private void filterNewTransactions() {
 
         List<Transaction> filteredTransactions = new ArrayList<>();
+        List<Transaction> existingTransactions = new ArrayList<>();
 
         for (Transaction tx : transactions) {
-            if (!checkTransaction(tx.getDate(), tx.getNumber())) {
-                tx = prepareTransaction(tx);
+            Transaction existingTransaction = checkTransaction(tx.getDate(), tx.getNumber());
+            if (null == existingTransaction) {
+                prepareTransaction(tx);
                 filteredTransactions.add(tx);
             } else {
-                response.addAmount(tx.getAmount());
+                existingTransactions.add(existingTransaction);
             }
         }
 
+        this.response.setExistingTransactions(existingTransactions);
         this.response.setFilteredTransactions(filteredTransactions);
     }
 
-    private boolean checkTransaction(Date date, String number) {
+    private Transaction checkTransaction(Date date, String number) {
 
-        Transaction tx = transactionRepository.findByDateAndNumber(date, number);
-
-        if (tx != null) {
-            return true;
-        }
-
-        return false;
+        return transactionRepository.findByDateAndNumber(date, number);
     }
 
-    private Transaction prepareTransaction(Transaction tx) {
+    private void prepareTransaction(Transaction tx) {
 
         String originalComment_lower = tx.originalComment.toLowerCase();
 
@@ -78,8 +74,6 @@ public class ImportResponseHelper {
                 tx.setCategory(cmt.getCategory());
             }
         }
-
-        return tx;
     }
 
 }

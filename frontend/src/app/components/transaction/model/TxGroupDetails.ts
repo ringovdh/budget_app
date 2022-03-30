@@ -1,4 +1,5 @@
 import {Transaction} from "../../../model/transaction";
+import {Category} from "../../../model/category";
 
 export class TxGroupDetails {
 
@@ -8,18 +9,15 @@ export class TxGroupDetails {
   totalAmount = 0;
   fixedCost = 0;
   average = 0;
-  inDetails: boolean;
+  category: Category;
   backgroundColor: string;
-  groupLabel: string;
 
-  constructor(transaction: Transaction, inDetails: boolean, groupLabel: string) {
+  constructor(transaction: Transaction, category: Category) {
     this.transactions.push(transaction);
-    this.inDetails = inDetails;
-    this.groupLabel = groupLabel;
+    this.category = category;
   }
 
   public calculateAmounts() {
-
     let _totalNegative = 0;
     let _totalPositive = 0;
     let _fixedCost = 0;
