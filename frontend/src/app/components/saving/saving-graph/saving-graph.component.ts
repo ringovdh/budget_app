@@ -11,7 +11,7 @@ export class SavingGraphComponent implements OnChanges {
 
   @Input() transactions: Transaction[];
   barChart = Chart;
-  labels = ['2016', "2017", "2018", "2019", "2020", "2021"];
+  labels = ['2016', "2017", "2018", "2019", "2020", "2021", "2022"];
   positiveGroup = [];
   negativegroup = [];
   savingLevels = [];

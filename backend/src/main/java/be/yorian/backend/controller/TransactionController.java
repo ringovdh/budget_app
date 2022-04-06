@@ -1,12 +1,13 @@
 package be.yorian.backend.controller;
 
-import java.util.List;
-
 import be.yorian.backend.entity.Transaction;
+
+import java.util.List;
 
 public interface TransactionController {
 
 	List<Transaction> getTransactions();
-	void saveTransaction(Transaction transaction);
+    List<Transaction> getTransactionsByYear(String year);
+    void saveTransaction(Transaction transaction);
 	
 }

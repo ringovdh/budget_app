@@ -1,13 +1,11 @@
 package be.yorian.backend.controller.impl;
 
-import be.yorian.backend.entity.Transaction;
-import be.yorian.backend.repository.TransactionRepository;
 import be.yorian.backend.controller.TransactionController;
-
+import be.yorian.backend.entity.Transaction;
 import be.yorian.backend.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -28,14 +26,16 @@ public class TransactionControllerImpl implements TransactionController{
         return transactions;
     }
 
+    @Override
+    @GetMapping("/transactions/{year}")
+    public List<Transaction> getTransactionsByYear(@PathVariable String year) {
+        return transactionService.getTransactionsByYear(year);
+    }
 
 	@Override
     @PostMapping("/transactions")
     public void saveTransaction(@RequestBody Transaction transaction) {
         transactionService.saveTransaction(transaction);
     }
-
-
-
 
 }

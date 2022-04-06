@@ -21,6 +21,10 @@ export class TransactionService {
     return this.http.get<Transaction[]>(this.transactionURL);
   }
 
+  public findPerYear(year): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(this.transactionURL+ '/' + year);
+  }
+
   public saveTransaction(transaction: Transaction): Observable<Object> {
     return this.http.post(this.transactionURL, transaction, this.httpOptions)
   }

@@ -113,7 +113,8 @@ export class TxPerMonthGroupDetails {
 
   private groupByCategory(transactions) {
     let groups: Map<string, TxGroupDetails> = new Map<string, TxGroupDetails>();
-
+    console.log("maand")
+    console.log(transactions)
     transactions.forEach((transaction) => {
       let _cat = transaction.category;
       let _catLimit = _cat.limitamount;

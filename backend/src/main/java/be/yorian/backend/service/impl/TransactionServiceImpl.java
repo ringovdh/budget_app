@@ -27,6 +27,12 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
+    public List<Transaction> getTransactionsByYear(String year) {
+        List<Transaction> txs = transactionRepository.findByYear(year);
+        return txs;
+    }
+
+    @Override
     public void saveTransaction(Transaction transaction) {
         transactionRepository.save(transaction);
     }

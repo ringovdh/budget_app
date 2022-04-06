@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {TransactionListComponent} from "../transaction-list/transaction-list.component";
 import {TransactionPipe} from "../../category/transaction.pipe";
 import {TxPerYearGroupDetails} from "../model/TxPerYearGroupDetails";
+import {TransactionService} from "../../../service/transaction-service";
+import {Transaction} from "../../../model/transaction";
 
 
 @Component({
@@ -14,21 +16,21 @@ export class TransactionPerYearComponent extends TransactionListComponent {
 
   txPerYearGroupDetails: TxPerYearGroupDetails;
   year = 0;
+  yearTransactions: Transaction[];
 
 
   ngOnInit() {
-    super.ngOnInit();
+    //super.ngOnInit();
     this.txPerYearGroupDetails = new TxPerYearGroupDetails()
   }
 
   changeYear(selected_year) {
     this.year = selected_year;
     this.txPerYearGroupDetails.resetAmounts();
-    this.groupAndCalculateTransactions();
+    this.transactionService.findPerYear(this.year).subscribe(data => {
+      this.txPerYearGroupDetails.groupAndCalculateTransactions(data);
+    });
+
   }
 
-  private groupAndCalculateTransactions() {
-    let filteredTransactions = this.filterBySelection(0, 0, this.year)
-    this.txPerYearGroupDetails.groupAndCalculateTransactions(filteredTransactions);
-  }
 }

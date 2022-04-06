@@ -1,4 +1,5 @@
 import {TxGroupDetails} from "./TxGroupDetails";
+import {Transaction} from "../../../model/transaction";
 
 export class TxPerYearGroupDetails {
 
@@ -16,15 +17,14 @@ export class TxPerYearGroupDetails {
     this.savings = 0;
   }
 
-  groupAndCalculateTransactions(filteredTransactions) {
-    this.groupByYear(filteredTransactions);
+  groupAndCalculateTransactions(filteredTransactions: Transaction[]) {
+    this.groupByCategory(filteredTransactions);
     this.calculateDetailsPerGroup();
     this.calculateYearGroupDetails()
   }
 
-  private groupByYear(transactions) {
+  private groupByCategory(transactions: Transaction[]) {
     let groups: Map<string, TxGroupDetails> = new Map<string, TxGroupDetails>();
-
     transactions.forEach((transaction) => {
       let _cat = transaction.category.label;
 

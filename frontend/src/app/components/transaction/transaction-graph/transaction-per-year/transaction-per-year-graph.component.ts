@@ -12,41 +12,72 @@ export class TransactionPerYearGraphComponent implements OnChanges {
 
   @Input() details: Map<string, TxGroupDetails>;
   barChart: Chart;
+  positivePieChart: Chart;
+  negativePieChart: Chart;
 
   constructor() {
   }
 
   ngOnChanges() {
-    let amounts = [];
-    let periods = [];
+    let positivePieChartAmounts = [];
+    let positivePieChartCategories = [];
+    let negativePieChartAmounts = [];
+    let negativePieChartCategories = [];
 
     this.details.forEach((value: TxGroupDetails, key: string) => {
-      if (value.category.indetails) {
-        periods.push(key);
-        amounts.push(value.totalAmount);
-      }
+
+        if (value.totalAmount > 0 || value.category.label === 'Easy Save') {
+            positivePieChartCategories.push(key);
+            positivePieChartAmounts.push(value.totalAmount);
+        } else {
+          negativePieChartCategories.push(key);
+          negativePieChartAmounts.push(value.totalAmount);
+        }
+
     });
 
-    if (this.barChart != null) {
-      this.barChart.destroy();
+    if (this.positivePieChart != null) {
+      this.positivePieChart.destroy();
+    }
+    if (this.negativePieChart != null) {
+      this.negativePieChart.destroy();
     }
 
-    this.barChart = new Chart('horizontalBarYears', {
-      type: 'horizontalBar', data: {
-        labels: periods,
+    this.positivePieChart = new Chart('positivePieChartYears', {
+      type: 'pie', data: {
+        labels: positivePieChartCategories,
         datasets: [
           {
-            data: amounts,
+            data: positivePieChartAmounts,
             borderColor: '#303e45',
             backgroundColor: "#7d97a5",
           }
         ]
       },
       options: {
-        legend: {display: false},
+        legend: {display: true},
         scales: {
-          xAxes: [{display: true}],
-          yAxes: [{display: true}],
+          xAxes: [{display: false}],
+          yAxes: [{display: false}],
+        }
+      }
+    });
+    this.negativePieChart = new Chart('negativePieChartYears', {
+      type: 'pie', data: {
+        labels: negativePieChartCategories,
+        datasets: [
+          {
+            data: negativePieChartAmounts,
+            borderColor: '#303e45',
+            backgroundColor: "#7d97a5",
+          }
+        ]
+      },
+      options: {
+        legend: {display: true},
+        scales: {
+          xAxes: [{display: false}],
+          yAxes: [{display: false}],
         }
       }
     });

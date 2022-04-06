@@ -34,7 +34,7 @@ export class TransactionListComponent implements OnInit {
   avgNegative = 0.0;
   fixedCost = 0.0;
 
-  constructor(private transactionService: TransactionService,
+  constructor(protected transactionService: TransactionService,
               private modalService: NgbModal,
               private categoryService: CategoryService,
               protected transactionPipe: TransactionPipe) {

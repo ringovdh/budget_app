@@ -39,6 +39,8 @@ export class TransactionPerMonthComponent extends TransactionListComponent {
 
   private groupAndCalculateTransactions() {
     let filteredTransactions = this.filterBySelection(0, this.month, this.year);
+    console.log("inkom Maand")
+    console.log(filteredTransactions)
     this.txPerMonthDetails.groupAndCalculateTransactions(filteredTransactions);
   }
 
