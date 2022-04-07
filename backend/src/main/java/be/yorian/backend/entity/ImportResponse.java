@@ -6,6 +6,7 @@ public class ImportResponse {
 
     private List<Transaction> filteredTransactions;
     private List<Transaction> existingTransactions;
+    private double availableBudget;
 
 
     public List<Transaction> getFilteredTransactions() {
@@ -25,4 +26,11 @@ public class ImportResponse {
         this.existingTransactions = existingTransactions;
     }
 
+    public double getAvailableBudget() {
+        return availableBudget;
+    }
+
+    public void setAvailableBudget(double availableBudget) {
+        this.availableBudget = availableBudget;
+    }
 }

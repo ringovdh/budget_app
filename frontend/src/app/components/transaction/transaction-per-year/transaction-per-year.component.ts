@@ -27,7 +27,7 @@ export class TransactionPerYearComponent extends TransactionListComponent {
   changeYear(selected_year) {
     this.year = selected_year;
     this.txPerYearGroupDetails.resetAmounts();
-    this.transactionService.findPerYear(this.year).subscribe(data => {
+    this.transactionService.findByYear(this.year).subscribe(data => {
       this.txPerYearGroupDetails.groupAndCalculateTransactions(data);
     });
 

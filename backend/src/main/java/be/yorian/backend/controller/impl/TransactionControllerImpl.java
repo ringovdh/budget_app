@@ -32,6 +32,13 @@ public class TransactionControllerImpl implements TransactionController{
         return transactionService.getTransactionsByYear(year);
     }
 
+    @Override
+    @GetMapping("/transactions/{month}/{year}")
+    public List<Transaction> getTransactionsByMonth(@PathVariable String month, @PathVariable String year) {
+        List<Transaction> transactions = transactionService.getTransactionsByMonth(month, year);
+        return transactions;
+    }
+
 	@Override
     @PostMapping("/transactions")
     public void saveTransaction(@RequestBody Transaction transaction) {

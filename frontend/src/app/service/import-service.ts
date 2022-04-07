@@ -22,8 +22,7 @@ export class ImportService {
 
     const data: FormData = new FormData();
     data.append('file', file);
-    var response: Observable<ImportResponse> = this.http.post<ImportResponse>(this.importURL, data)
-    console.log(response)
-    return response;
+
+    return this.http.post<ImportResponse>(this.importURL, data)
   }
 }

@@ -25,6 +25,7 @@ export class ImportComponent implements OnInit {
   noTransactions = false;
   p = 1;
   txPerMonthDetails: TxPerMonthGroupDetails;
+  availableBudget: number;
 
   constructor(private formBuilder: FormBuilder, private modalService: NgbModal, private importService: ImportService) { }
 
@@ -49,6 +50,8 @@ export class ImportComponent implements OnInit {
       this.transactions = data.filteredTransactions;
       this.numberOfTransactions = data.filteredTransactions.length;
       this.existingTransactions = data.existingTransactions;
+      this.availableBudget = data.availableBudget;
+      console.log(data)
       this.showUploadForm = false;
       this.txPerMonthDetails.groupAndCalculateTransactions(this.existingTransactions);
     });

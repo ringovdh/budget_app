@@ -24,9 +24,13 @@ export class TransactionPerMonthComponent extends TransactionListComponent {
 
   public changeMonth(selected_month) {
     this.month = selected_month;
-    this.txPerMonthDetails.resetAmounts();
-    this.txPerMonthDetails.setFormattedMont(0, this.month)
-    this.groupAndCalculateTransactions();
+    if (this.year != 0) {
+      this.txPerMonthDetails.resetAmounts();
+      this.txPerMonthDetails.setFormattedMont(this.year, this.month)
+      this.transactionService.findByMonth(this.year, this.month).subscribe(data => {
+        this.txPerMonthDetails.groupAndCalculateTransactions(data);
+      });
+    }
     this.yearDisabled = false;
   }
 
@@ -34,14 +38,9 @@ export class TransactionPerMonthComponent extends TransactionListComponent {
     this.year = selected_year;
     this.txPerMonthDetails.resetAmounts();
     this.txPerMonthDetails.setFormattedMont(this.year, this.month)
-    this.groupAndCalculateTransactions();
-  }
-
-  private groupAndCalculateTransactions() {
-    let filteredTransactions = this.filterBySelection(0, this.month, this.year);
-    console.log("inkom Maand")
-    console.log(filteredTransactions)
-    this.txPerMonthDetails.groupAndCalculateTransactions(filteredTransactions);
+    this.transactionService.findByMonth(this.year, this.month).subscribe(data => {
+      this.txPerMonthDetails.groupAndCalculateTransactions(data);
+    });
   }
 
 }

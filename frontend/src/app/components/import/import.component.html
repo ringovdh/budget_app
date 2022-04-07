@@ -27,6 +27,7 @@
             </div>
             <div class="panel-body">
               <div>
+                <p>budget = {{ availableBudget | number:'1.2-2':'be-BE' }}€</p>
                 <p>uitgegeven = {{ txPerMonthDetails.totalNegative | number:'1.2-2':'be-BE' }}€</p>
                 <p>vaste kosten = {{ txPerMonthDetails.fixedCost | number:'1.2-2':'be-BE' }}€</p>
                 <p>ontvangen = {{ txPerMonthDetails.totalPositive | number:'1.2-2':'be-BE' }}€

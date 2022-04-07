@@ -21,11 +21,16 @@ export class TransactionService {
     return this.http.get<Transaction[]>(this.transactionURL);
   }
 
-  public findPerYear(year): Observable<Transaction[]> {
+  public findByYear(year): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(this.transactionURL+ '/' + year);
   }
 
   public saveTransaction(transaction: Transaction): Observable<Object> {
     return this.http.post(this.transactionURL, transaction, this.httpOptions)
   }
+
+  public findByMonth(year: number, month: number): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(this.transactionURL+ '/' + month + '/' + year);
+  }
+
 }

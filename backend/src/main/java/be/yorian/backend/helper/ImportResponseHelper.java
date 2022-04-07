@@ -5,8 +5,11 @@ import be.yorian.backend.entity.ImportResponse;
 import be.yorian.backend.entity.Transaction;
 import be.yorian.backend.repository.CommentRepository;
 import be.yorian.backend.repository.TransactionRepository;
-import java.sql.Date;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ImportResponseHelper {
@@ -31,8 +34,38 @@ public class ImportResponseHelper {
 
         loadAllComments();
         filterNewTransactions();
+        retrieveBudget();
 
         return this.response;
+    }
+
+    private void retrieveBudget() {
+        String date = retrieveCorrectDate();
+        double budget = 0.0;
+        List<Transaction> transactions = this.transactionRepository.findByDateAndCategory(date, 5, 13);
+        if (transactions.size() > 0){
+            for(Transaction tx : transactions) {
+                budget = budget + tx.amount;
+            }
+        }
+        this.response.setAvailableBudget(budget);
+    }
+
+    private String retrieveCorrectDate() {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Transaction tx = this.transactions.get(0);
+        Date date = tx.getDate();
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+
+        c.add(Calendar.MONTH, -1);
+
+        Date changedDate = c.getTime();
+        String dateAsString = dateFormat.format(changedDate);
+
+        return dateAsString.substring(0,7);
     }
 
     private void loadAllComments() {

@@ -8,6 +8,7 @@ public interface TransactionController {
 
 	List<Transaction> getTransactions();
     List<Transaction> getTransactionsByYear(String year);
+    List<Transaction> getTransactionsByMonth(String month, String year);
     void saveTransaction(Transaction transaction);
 	
 }

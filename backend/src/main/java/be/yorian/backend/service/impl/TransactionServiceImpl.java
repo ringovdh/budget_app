@@ -28,7 +28,12 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<Transaction> getTransactionsByYear(String year) {
-        List<Transaction> txs = transactionRepository.findByYear(year);
+        return transactionRepository.findByYear(year);
+    }
+
+    @Override
+    public List<Transaction> getTransactionsByMonth(String month, String year) {
+        List<Transaction> txs = transactionRepository.findByMonth(month, year);
         return txs;
     }
 
