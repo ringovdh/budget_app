@@ -3,6 +3,7 @@ package be.yorian.backend.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "comments")
 public class Comment {
 
     @Id
@@ -10,8 +11,8 @@ public class Comment {
     private long id;
     private String searchterm;
     private String replacement;
-    @OneToOne
-    @JoinColumn(name = "category", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public Comment() {

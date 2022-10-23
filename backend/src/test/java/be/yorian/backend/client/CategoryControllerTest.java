@@ -25,7 +25,7 @@ public class CategoryControllerTest {
 
     @Test
     public void getCategory() {
-        Optional<Category> category = controller.getCategory(0);
+        Optional<Category> category = controller.getCategoryById(0);
         assertThat(category.get()).isNotNull();
         assertThat(category.get().getId()).isEqualTo(Long.valueOf(0));
         assertThat(category.get().getLabel()).isEqualTo("Lening");

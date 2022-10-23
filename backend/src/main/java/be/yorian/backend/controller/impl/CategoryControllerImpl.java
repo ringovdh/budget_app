@@ -1,17 +1,16 @@
 package be.yorian.backend.controller.impl;
 
-import java.net.URI;
-import java.util.List;
-import java.util.Optional;
-
+import be.yorian.backend.controller.CategoryController;
 import be.yorian.backend.entity.Category;
 import be.yorian.backend.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import be.yorian.backend.controller.CategoryController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -31,18 +30,17 @@ public class CategoryControllerImpl implements CategoryController{
     @Override
     @GetMapping("/categories")
     public List<Category> getCategories() {
-        List<Category> categories = categoryService.getCategories();
-    	return categories;
+        return categoryService.getCategories();
     }
 
     @Override
     @GetMapping("/categories/{category_id}")
-    public Optional<Category> getCategory(@PathVariable("category_id") long category_id) {
-        return categoryService.getCategory(category_id);
+    public Optional<Category> getCategoryById(@PathVariable("category_id") long category_id) {
+        return categoryService.getCategoryById(category_id);
     }
 
     @Override
-    @PostMapping("/categories")
+    @PostMapping("/categories/")
     public ResponseEntity<Void> saveCategory(@RequestBody Category category) {
         Category new_category = categoryService.saveCategory(category);
 
@@ -50,9 +48,9 @@ public class CategoryControllerImpl implements CategoryController{
     }
 
     @Override
-    @PutMapping("/categories")
-    public Category updateCategory(@RequestBody Category category) {
-        return categoryService.updateCategory(category);
+    @PutMapping("/categories/{category_id}")
+    public Category updateCategory(@PathVariable("category_id")Long categoryId, @RequestBody Category category) {
+        return categoryService.updateCategory(categoryId, category);
     }
     
     @Override

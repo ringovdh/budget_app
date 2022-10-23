@@ -32,7 +32,7 @@ public class CategoryControllerBootTest {
 
     @Test
     public void getCategory() throws Exception {
-        given(service.getCategory(anyLong()))
+        given(service.getCategoryById(anyLong()))
                 .willReturn(java.util.Optional.of(new Category("Voeding")));
 
         mock.perform(get("/categories/1"))
@@ -41,7 +41,7 @@ public class CategoryControllerBootTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("label").value("Voeding"));
 
-        verify(service).getCategory(anyLong());
+        verify(service).getCategoryById(anyLong());
     }
 
     @Test

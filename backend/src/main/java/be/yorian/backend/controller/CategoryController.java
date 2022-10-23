@@ -9,9 +9,9 @@ import org.springframework.http.ResponseEntity;
 public interface CategoryController {
 
     List<Category> getCategories();
-    Optional<Category> getCategory(long id);
+    Optional<Category> getCategoryById(long id);
     ResponseEntity<Void> saveCategory(Category category);
-    Category updateCategory(Category category);
+    Category updateCategory(Long categoryId, Category category);
     void deleteCategory(long category_id);
         
     

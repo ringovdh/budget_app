@@ -1,14 +1,14 @@
 package be.yorian.backend.controller.impl;
 
-import java.util.List;
-import java.util.Optional;
-
+import be.yorian.backend.controller.CommentController;
 import be.yorian.backend.entity.Comment;
 import be.yorian.backend.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
-import be.yorian.backend.controller.CommentController;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -21,31 +21,37 @@ public class CommentControllerImpl implements CommentController {
         this.commentService = commentService;
     }
 
-    
     @Override
     @GetMapping("/comments")
     public List<Comment> getComments() {
-        List<Comment> comments = commentService.getComments();
-        return comments;
+        return commentService.getComments();
     }
     
     @Override
     @GetMapping("/comments/{comment_id}")
-    public Optional<Comment> getCommentById(@PathVariable("comment_id") Long comment_id) {
-    	return commentService.getCommentById(comment_id);
+    public Optional<Comment> getCommentById(@PathVariable("comment_id") Long commentId) {
+    	return commentService.getCommentById(commentId);
+    }
+
+    @Override
+    @PutMapping("/comments/{comment_id}")
+    public void updateComment(@PathVariable("comment_id")Long commentId, @RequestBody Comment comment) {
+        commentService.updateComment(commentId, comment);
     }
 
     @Override
     @PostMapping("/comments")
-    public void saveComment(@RequestBody Comment comment) {
+    public void createComment(@RequestBody Comment comment) {
         commentService.saveComment(comment);
     }
-
     
     @Override
     @DeleteMapping("/comments/{comment_id}")
-	public void deleteComment(@PathVariable("comment_id")Long comment_id) {
-		commentService.deleteComment(comment_id);	
+	public void deleteComment(@PathVariable("comment_id")Long commentId) {
+        commentService.deleteComment(commentId);
 	}
-    
+
+    private Sort sortBySearchterm() {
+        return Sort.by("searchterm").ascending();
+    }
 }

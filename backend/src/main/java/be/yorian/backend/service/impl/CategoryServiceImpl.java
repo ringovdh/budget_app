@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
     
     @Override
-	public Optional<Category> getCategory(long category_id) {
+	public Optional<Category> getCategoryById(long category_id) {
 		return categoryRepository.findById(category_id);
 	}
     
@@ -37,14 +38,19 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-    public Category updateCategory(Category category) {
-        
-		if (categoryRepository.findById(category.getId()).isPresent()) {
-            Category existingCategory = categoryRepository.findById(category.getId()).get();
-            existingCategory.setLabel(category.getLabel());
-            return categoryRepository.save(existingCategory);
+    public Category updateCategory(Long categoryId, Category category) {
+        Optional<Category> optionalCategory = categoryRepository.findById(categoryId);
+		if (optionalCategory.isEmpty()) {
+            throw new EntityNotFoundException("category_not_found");
         } else {
-            return null;
+            Category existingCategory = optionalCategory.get();
+            existingCategory.setIcon(category.getIcon());
+            existingCategory.setLabel(category.getLabel());
+            existingCategory.setFixedcost(category.isFixedcost());
+            existingCategory.setIndetails(category.isIndetails());
+            existingCategory.setInmonitor(category.isInmonitor());
+            existingCategory.setLimitamount(category.getLimitamount());
+            return categoryRepository.save(existingCategory);
         }
     }
 
